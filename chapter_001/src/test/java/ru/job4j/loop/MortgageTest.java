@@ -16,7 +16,7 @@ public class MortgageTest {
     @Test
     public void when2Year() {
         Mortgage mortgage = new Mortgage();
-        int year = mortgage.year(100, 120, 50);
-        assertThat(year, is(2));
+        int year = mortgage.year(100, 70, 50);
+        assertThat(year, is(4));
     }
 }
