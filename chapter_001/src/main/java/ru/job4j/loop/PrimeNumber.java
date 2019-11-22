@@ -3,14 +3,17 @@ package ru.job4j.loop;
 public class PrimeNumber {
 
     public int calc(int finish) {
-        int count = 1;
+        int count = 0;
         for (int outter = 2; outter <= finish; outter++) {
+            boolean prime = true;
             for (int inner = 2; inner < outter; inner++) {
                 if (outter % inner == 0) {
+                    prime = false;
                     break;
-                } else if (inner == outter - 1) {
-                    count++;
                 }
+            }
+            if (prime) {
+                count++;
             }
         }
         return count;
