@@ -4,7 +4,7 @@ package ru.job4j.array;
  * Класс осуществляющий поиск индекса в массиве с заданным элементом
  *
  * @author Денис Висков
- * @version 1.1
+ * @version 1.2
  * @since 23.11.19
  */
 public class FindLoop {
@@ -45,5 +45,23 @@ public class FindLoop {
             }
         }
         return rst;
+    }
+
+    /**
+     * Метод реализующий сортировку массива по возрастанию
+     *
+     * @param data - массив
+     * @return - отсортированный массив по возрастанию
+     */
+    public static int[] sort(int[] data) {
+        int temp = 0;
+        for (int i = 0; i < data.length; i++) {
+            int min = MinDiapason.findMin(data, i, data.length);
+            int index = FindLoop.indexOf(data, min, 0, data.length - 1);
+            temp = data[i];
+            data[i] = min;
+            data[index] = temp;
+        }
+        return data;
     }
 }
