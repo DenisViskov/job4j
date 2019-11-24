@@ -4,7 +4,7 @@ package ru.job4j.array;
  * Класс отвечает за выполнение реверса массива расстанавливая его элементы в обратном порядке
  *
  * @author Денис Висков
- * @version 1.0
+ * @version 1.1
  * @since 23.11.19
  */
 public class Turn {
@@ -19,15 +19,11 @@ public class Turn {
         int[] result = array;
         int lastIndex = result.length - 1;
         int temp = 0;
-        for (int i = 0; i < result.length; i++) {
-            if (lastIndex > i) {
-                temp = result[i];
-                result[i] = result[lastIndex];
-                result[lastIndex] = temp;
-                lastIndex--;
-            } else {
-                break;
-            }
+        for (int i = 0; i < result.length / 2; i++) {
+            temp = result[i];
+            result[i] = result[lastIndex];
+            result[lastIndex] = temp;
+            lastIndex--;
         }
         return array;
     }
