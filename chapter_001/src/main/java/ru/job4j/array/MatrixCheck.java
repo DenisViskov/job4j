@@ -4,7 +4,7 @@ package ru.job4j.array;
  * Класс реализует функционал проверки выигрышной ситуации в игре сокобан
  *
  * @author Денис Висков
- * @version 1.1
+ * @version 1.2
  * @since 23.11.2019
  */
 public class MatrixCheck {
@@ -16,36 +16,34 @@ public class MatrixCheck {
      * @return - флаг "true","false"
      */
     public static boolean isWin(char[][] board) {
-        boolean result = true;
-        boolean firstCheck = true;
-        boolean secondCheck = true;
-        int count = 0;
+        boolean result = false;
         char sign = 'X';
-        FIRSTCHECK:
+        int rowX = 0;
+        int cellX = 0;
+        OUTTER:
         for (int row = 0; row < board.length; row++) {
             for (int cell = 0; cell < board.length; cell++) {
-                if (board[row][0] == sign) {
+                if (board[row][cell] == sign) {
                     for (int i = 0; i < board.length; i++) {
-                        if (board[row][i] != sign) {
-                            firstCheck = false;
-                        } else if (i == board.length - 1) {
-                            continue FIRSTCHECK;
+                        if (board[row][i] == sign) {
+                            rowX++;
+                        }
+                        if (board[i][cell] == sign) {
+                            cellX++;
+                        }
+                        if (rowX == board.length || cellX == board.length) {
+                            result = true;
+                            break OUTTER;
                         }
                     }
-                } else if (board[row][cell] == sign) {
-                    for (int i = 0; i < board.length; i++) {
-                        if (board[i][cell] != sign) {
-                            secondCheck = false;
-                        }
-                    }
+                    rowX = 0;
+                    cellX = 0;
                 }
             }
         }
-        if (!firstCheck || !secondCheck) {
-            result = false;
-        }
         return result;
     }
+
 
     public static void main(String[] args) {
         char[][] hasWinVertical = {
