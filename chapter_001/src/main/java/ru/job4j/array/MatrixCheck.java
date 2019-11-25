@@ -4,7 +4,7 @@ package ru.job4j.array;
  * Класс реализует функционал проверки выигрышной ситуации в игре сокобан
  *
  * @author Денис Висков
- * @version 1.0
+ * @version 1.1
  * @since 23.11.2019
  */
 public class MatrixCheck {
@@ -16,39 +16,33 @@ public class MatrixCheck {
      * @return - флаг "true","false"
      */
     public static boolean isWin(char[][] board) {
-        boolean result = false;
+        boolean result = true;
+        boolean firstCheck = true;
+        boolean secondCheck = true;
         int count = 0;
         char sign = 'X';
         FIRSTCHECK:
         for (int row = 0; row < board.length; row++) {
             for (int cell = 0; cell < board.length; cell++) {
-                if (board[row][cell] == sign) {
-                    count++;
-                } else {
-                    continue FIRSTCHECK;
-                }
-            }
-        }
-        if (count == board.length) {
-            result = true;
-            return result;
-        }
-        SECONDCHEK:
-        for (int row = 0; row < board.length; row++) {
-            for (int cell = 0; cell < board.length; cell++) {
-                if (board[row][cell] == sign && row == 0) {
+                if (board[row][0] == sign) {
                     for (int i = 0; i < board.length; i++) {
-                        if (board[i][cell] == sign) {
-                            count++;
-                        } else {
-                            break SECONDCHEK;
+                        if (board[row][i] != sign) {
+                            firstCheck = false;
+                        } else if (i == board.length - 1) {
+                            continue FIRSTCHECK;
                         }
                     }
-                } else if (count == board.length) {
-                    result = true;
-                    break SECONDCHEK;
+                } else if (board[row][cell] == sign) {
+                    for (int i = 0; i < board.length; i++) {
+                        if (board[i][cell] != sign) {
+                            secondCheck = false;
+                        }
+                    }
                 }
             }
+        }
+        if (!firstCheck || !secondCheck) {
+            result = false;
         }
         return result;
     }
@@ -85,3 +79,4 @@ public class MatrixCheck {
         System.out.println("A board has a winner : " + lose);
     }
 }
+
