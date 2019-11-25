@@ -16,12 +16,38 @@ public class MatrixCheck {
      * @return - флаг "true","false"
      */
     public static boolean isWin(char[][] board) {
-        boolean result = true;
-        OUTTER:
+        boolean result = false;
+        int count = 0;
+        char sign = 'X';
+        FIRSTCHECK:
         for (int row = 0; row < board.length; row++) {
-            INNER:
             for (int cell = 0; cell < board.length; cell++) {
-                char sign = board[row][cell];
+                if (board[row][cell] == sign) {
+                    count++;
+                } else {
+                    continue FIRSTCHECK;
+                }
+            }
+        }
+        if (count == board.length) {
+            result = true;
+            return result;
+        }
+        SECONDCHEK:
+        for (int row = 0; row < board.length; row++) {
+            for (int cell = 0; cell < board.length; cell++) {
+                if (board[row][cell] == sign && row == 0) {
+                    for (int i = 0; i < board.length; i++) {
+                        if (board[i][cell] == sign) {
+                            count++;
+                        } else {
+                            break SECONDCHEK;
+                        }
+                    }
+                } else if (count == board.length) {
+                    result = true;
+                    break SECONDCHEK;
+                }
             }
         }
         return result;
