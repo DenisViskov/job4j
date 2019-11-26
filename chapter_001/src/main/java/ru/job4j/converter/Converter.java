@@ -10,11 +10,11 @@ public class Converter {
         return value / 60;
     }
 
-    public static int EuroToRuble(int value) {
+    public static int euroToRuble(int value) {
         return value * 70;
     }
 
-    public static int DollarToRuble(int value) {
+    public static int dollarToRuble(int value) {
         return value * 60;
     }
 
@@ -33,13 +33,13 @@ public class Converter {
 
         int inEuroToRuble = 2;
         int expectedEuroToRuble = 140;
-        int outEuroToRuble = EuroToRuble(inEuroToRuble);
+        int outEuroToRuble = euroToRuble(inEuroToRuble);
         boolean passedEuroToRuble = expectedEuroToRuble == outEuroToRuble;
         System.out.println("2 euro are 140. Test result : " + passedEuroToRuble);
 
         int inDollarToRuble = 5;
         int expectedDollarToRuble = 300;
-        int outDollarToRuble = DollarToRuble(inDollarToRuble);
+        int outDollarToRuble = dollarToRuble(inDollarToRuble);
         boolean passedDollarToRuble = expectedDollarToRuble == outDollarToRuble;
         System.out.println("5 dollars are 300. Test result : " + passedDollarToRuble);
     }

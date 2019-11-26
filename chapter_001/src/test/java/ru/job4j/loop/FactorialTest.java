@@ -11,13 +11,13 @@ public class FactorialTest {
     public void whenCalculateFactorialForFiveThenOneHundreedTwenty() {
         int out = new Factorial().calc(5);
         int expected = 120;
-        Assert.assertEquals(expected,out);
+        Assert.assertEquals(expected, out);
     }
 
     @Test
     public void whenCalculateFactorialForZeroThenOne() {
         int out = new Factorial().calc(0);
         int expected = 1;
-        Assert.assertEquals(expected,out);
+        Assert.assertEquals(expected, out);
     }
 }
