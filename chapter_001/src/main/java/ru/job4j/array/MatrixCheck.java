@@ -4,7 +4,7 @@ package ru.job4j.array;
  * Класс реализует функционал проверки выигрышной ситуации в игре сокобан
  *
  * @author Денис Висков
- * @version 1.2
+ * @version 1.3
  * @since 23.11.2019
  */
 public class MatrixCheck {
@@ -20,7 +20,6 @@ public class MatrixCheck {
         char sign = 'X';
         int rowX = 0;
         int cellX = 0;
-        OUTTER:
         for (int row = 0; row < board.length; row++) {
             for (int cell = 0; cell < board.length; cell++) {
                 if (board[row][cell] == sign) {
@@ -33,7 +32,7 @@ public class MatrixCheck {
                         }
                         if (rowX == board.length || cellX == board.length) {
                             result = true;
-                            break OUTTER;
+                            break;
                         }
                     }
                     rowX = 0;
