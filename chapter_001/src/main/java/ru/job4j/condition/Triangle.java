@@ -1,8 +1,92 @@
 package ru.job4j.condition;
 
+/**
+ * Класс реализует функционал вычисления площади треугольника,периметра,а так же проверку
+ * возможно ли построение треугольника с заданными параметрами
+ *
+ * @author Денис Висков
+ * @version 1.1
+ * @since 27.11.2019
+ */
 public class Triangle {
+    /**
+     * Первая точка
+     */
+    private Point first;
 
-    public static boolean exist(double ab, double ac, double bc) {
-        return ab + ac > bc && ac + bc > ab && ab + bc > ac;
+    /**
+     * Вторая точка
+     */
+    private Point second;
+
+    /**
+     * Третья точка
+     */
+    private Point third;
+
+    public Triangle(Point ap, Point bp, Point cp) {
+        this.first = ap;
+        this.second = bp;
+        this.third = cp;
+    }
+
+    /**
+     * Метод вычисления периметра по длинам сторон.
+     * <p>
+     * Формула.
+     * <p>
+     * (a + b + c) / 2
+     *
+     * @param a расстояние между точками a b
+     * @param b расстояние между точками a c
+     * @param c расстояние между точками b c
+     * @return Периметр.
+     */
+    public double period(double a, double b, double c) {
+        return (a + b + c) / 2;
+    }
+
+    /**
+     * Метод должен вычислить площадь треугольника.
+     * <p>
+     * Формула.
+     * <p>
+     * √ p *(p - ab) * (p - ac) * (p - bc)
+     * <p>
+     * где √ - корень квадратный, для извлечения корня использовать метод Math.sqrt().
+     *
+     * @return Вернуть площадь, если треугольник существует или -1.
+     */
+    public double area() {
+        double rsl = -1;
+        double a = first.distance(second);
+        double b = first.distance(third);
+        double c = second.distance(third);
+        double p = period(a, b, c);
+        if (this.exist(a, b, c)) {
+            // написать формулу для расчета площади треугольника.
+            rsl = Math.sqrt(p * (p - a * b) * (p - a * c) * (p - b * c));
+        }
+        return rsl;
+    }
+
+    /**
+     * Метод проверяет можно ли построить треугольник с такими длинами сторон.
+     * <p>
+     * Подумайте какое надо написать условие, чтобы определить можно ли построить треугольник.
+     *
+     * @param a Длина от точки a b.
+     * @param b Длина от точки a c.
+     * @param c Длина от точки b c.
+     * @return
+     */
+    private boolean exist(double a, double c, double b) {
+        boolean result = false;
+        if (a + b > c) {
+            result = true;
+        } else if (c + b > a) {
+            result = true;
+        }
+        return result;
     }
 }
