@@ -8,20 +8,52 @@ package ru.job4j.oop;
  * @since 27.11.2019
  */
 public class Cat {
+    /**
+     * Еда
+     */
+    private String food;
 
-    public static void main(String[] args) {
-        Cat peppy = new Cat();
-        String say = peppy.sound();
-        System.out.println("Peppy says " + say);
+    /**
+     * Имя
+     */
+    private String name;
+
+    /**
+     * Метод выводи в консоль еду
+     */
+    public void show() {
+        System.out.println(this.name);
+        System.out.println(this.food);
     }
 
     /**
-     * Метод реализует функционал пения
+     * Метод реализует инициализацию переменной food
      *
-     * @return - возвращает текст песни
+     * @param meat - Аргумент
      */
-    public String sound() {
-        String voice = "may-may";
-        return voice;
+    public void eat(String meat) {
+        this.food = meat;
+    }
+
+    /**
+     * Метод реализует инициализацию имени - кличкой
+     *
+     * @param nick - Аргумент
+     */
+    public void giveNick(String nick) {
+        this.name = nick;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("There are gav's food.");
+        Cat gav = new Cat();
+        gav.giveNick("SomeNick");
+        gav.eat("kotleta");
+        gav.show();
+        System.out.println("There are black's food.");
+        Cat black = new Cat();
+        black.eat("fish");
+        black.giveNick("BlackCat");
+        black.show();
     }
 }
