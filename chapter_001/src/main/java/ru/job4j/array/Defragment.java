@@ -16,21 +16,21 @@ public class Defragment {
      * @return - дефрагментированный массив
      */
     public static String[] compress(String[] array) {
-        for (int index = 0; index < array.length; index++) {
-            String cell = array[index];
+        for (int i = 0; i < array.length; i++) {
+            String cell = array[i];
             if (cell == null) {
-                int cellIndex = index;
-                int workIndex = index;
-                while (workIndex < array.length) {
-                    if (array[workIndex] != null) {
-                        array[cellIndex] = array[workIndex];
-                        array[workIndex] = cell;
+                int index = i;
+                int count = i;
+                while (count < array.length) {
+                    if (array[count] != null) {
+                        array[index] = array[count];
+                        array[count] = cell;
                         break;
                     }
-                    workIndex++;
+                    count++;
                 }
             }
-            System.out.print(array[index] + " ");
+            System.out.print(array[i] + " ");
         }
         return array;
     }

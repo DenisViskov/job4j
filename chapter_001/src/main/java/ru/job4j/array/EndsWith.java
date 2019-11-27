@@ -18,13 +18,13 @@ public class EndsWith {
      */
     public static boolean endsWith(char[] word, char[] post) {
         boolean result = true;
-        int wordIndex = word.length - 1;
+        int index = word.length - 1;
         for (int i = post.length - 1; i >= 0; i--) {
-            if (word[wordIndex] != post[i]) {
+            if (word[index] != post[i]) {
                 result = false;
                 break;
             }
-            wordIndex--;
+            index--;
         }
         return result;
     }

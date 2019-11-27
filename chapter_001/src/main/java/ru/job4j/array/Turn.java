@@ -17,13 +17,13 @@ public class Turn {
      */
     public int[] back(int[] array) {
         int[] result = array;
-        int lastIndex = result.length - 1;
+        int last = result.length - 1;
         int temp = 0;
         for (int i = 0; i < result.length / 2; i++) {
             temp = result[i];
-            result[i] = result[lastIndex];
-            result[lastIndex] = temp;
-            lastIndex--;
+            result[i] = result[last];
+            result[last] = temp;
+            last--;
         }
         return array;
     }

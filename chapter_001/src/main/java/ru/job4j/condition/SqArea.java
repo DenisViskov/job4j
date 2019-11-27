@@ -3,11 +3,11 @@ package ru.job4j.condition;
 public class SqArea {
 
     public static double square(int p, int k) {
-        double oneRatio = 1;
-        double firstDo = p / 2;
-        double secondDo = oneRatio + k;
-        double thirdDo = firstDo / secondDo;
-        double result = oneRatio * thirdDo * k * oneRatio;
+        double ratio = 1;
+        double first = p / 2;
+        double second = ratio + k;
+        double third = first / second;
+        double result = ratio * third * k * ratio;
         return result;
     }
 
