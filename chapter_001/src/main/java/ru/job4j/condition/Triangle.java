@@ -47,15 +47,15 @@ public class Triangle {
     }
 
     /**
-     * Метод должен вычислить площадь треугольника.
+     * Метод вычисляет площадь треугольника.
      * <p>
      * Формула.
      * <p>
      * √ p *(p - ab) * (p - ac) * (p - bc)
      * <p>
-     * где √ - корень квадратный, для извлечения корня использовать метод Math.sqrt().
+     * где √ - корень квадратный
      *
-     * @return Вернуть площадь, если треугольник существует или -1.
+     * @return Возвращает площадь если треугольник существует и возвращает -1 если не существует.
      */
     public double area() {
         double rsl = -1;
@@ -64,7 +64,6 @@ public class Triangle {
         double c = second.distance(third);
         double p = period(a, b, c);
         if (this.exist(a, b, c)) {
-            // написать формулу для расчета площади треугольника.
             rsl = Math.sqrt(p * (p - a * b) * (p - a * c) * (p - b * c));
         }
         return rsl;
@@ -81,12 +80,6 @@ public class Triangle {
      * @return
      */
     private boolean exist(double a, double c, double b) {
-        boolean result = false;
-        if (a + b > c) {
-            result = true;
-        } else if (c + b > a) {
-            result = true;
-        }
-        return result;
+        return a + c > b && c + b > a && a + b > c;
     }
 }
