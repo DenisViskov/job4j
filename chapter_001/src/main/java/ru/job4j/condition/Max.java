@@ -30,8 +30,7 @@ public class Max {
      * @return - максимум
      */
     public static int max(int first, int second, int third) {
-        int temp = max(first, second);
-        int max = temp >= third ? temp : third;
+        int max = max(first, max(second, third));
         return max;
     }
 
@@ -45,8 +44,7 @@ public class Max {
      * @return - максимум
      */
     public static int max(int first, int second, int third, int four) {
-        int temp = max(first, second, third);
-        int max = temp >= four ? temp : four;
+        int max = max(max(first, second), max(third, four));
         return max;
     }
 }
