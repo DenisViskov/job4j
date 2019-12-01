@@ -4,7 +4,7 @@ package ru.job4j.condition;
  * Класс реализует функционал сравнения нескольких чисел
  *
  * @author Денис Висков
- * @version 1.1
+ * @version 1.2
  * @since 28.11.2019
  */
 public class Max {
@@ -30,8 +30,8 @@ public class Max {
      * @return - максимум
      */
     public static int max(int first, int second, int third) {
-        int result = first >= second ? first : second;
-        int max = result >= third ? result : third;
+        int temp = max(first, second);
+        int max = temp >= third ? temp : third;
         return max;
     }
 
@@ -45,9 +45,8 @@ public class Max {
      * @return - максимум
      */
     public static int max(int first, int second, int third, int four) {
-        int one = first >= second ? first : second;
-        int two = third >= four ? third : four;
-        int max = one >= two ? one : two;
+        int temp = max(first, second, third);
+        int max = temp >= four ? temp : four;
         return max;
     }
 }
