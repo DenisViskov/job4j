@@ -4,7 +4,7 @@ package ru.job4j.pojo;
  * Класс демонстрирующий работу удаления элементов в массиве
  *
  * @author Денис Висков
- * @version 1.0
+ * @version 1.1
  * @since 01.12.2019
  */
 public class Shop {
@@ -65,14 +65,11 @@ public class Shop {
      * @return - массив с удалённым элементом
      */
     public Product[] delete(Product[] products, int index) {
-        Product[] result = new Product[products.length];
-        for (int i = 0; i < products.length; i++) {
-            result[i] = products[i];
+        products[index] = null;
+        for (int j = index; j < products.length - 1; j++) {
+            products[j] = products[j + 1];
         }
-        result[index] = null;
-        for (int j = index; j < result.length - 1; j++) {
-            result[j] = result[j + 1];
-        }
-        return result;
+        products[products.length - 1] = null;
+        return products;
     }
 }
