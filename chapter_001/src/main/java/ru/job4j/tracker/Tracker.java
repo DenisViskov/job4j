@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -52,12 +53,11 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < this.items.length; i++) {
-            if (this.items[i] != null && this.items[i].getId().equals(id)) {
-                this.items[i] = item;
-                result = true;
-                break;
-            }
+        int index = this.findIndexByID(id);
+        if (index != -1) {
+            item.setId(this.items[index].getId());
+            this.items[index] = item;
+            result = true;
         }
         return result;
     }
@@ -71,13 +71,11 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < this.items.length; i++) {
-            if (this.items[i] != null && this.items[i].getId().equals(id)) {
-                this.items[i] = null;
-                System.arraycopy(this.items, i + 1, this.items, i, this.items.length - (i + 1));
-                result = true;
-                break;
-            }
+        int index = this.findIndexByID(id);
+        if (index != -1) {
+            this.items[index] = null;
+            System.arraycopy(this.items, index + 1, this.items, index, this.items.length - (index + 1));
+            result = true;
         }
         return result;
     }
@@ -88,15 +86,7 @@ public class Tracker {
      * @return - новый массив без Null элементов
      */
     public Item[] findAll() {
-        int index = 0;
-        while (this.items[index] != null) {
-            index++;
-        }
-        Item[] result = new Item[index];
-        for (int i = 0; i < index; i++) {
-            result[i] = this.items[i];
-        }
-        return result;
+        return Arrays.copyOf(this.items, this.position);
     }
 
     /**
@@ -106,13 +96,7 @@ public class Tracker {
      * @return - массив с совпадающими именами
      */
     public Item[] findByName(String key) {
-        int count = 0;
-        for (int i = 0; i < this.items.length; i++) {
-            if (this.items[i] != null && this.items[i].getName().equals(key)) {
-                count++;
-            }
-        }
-        Item[] result = new Item[count];
+        Item[] result = new Item[this.position];
         int index = 0;
         for (Item item : this.items) {
             if (item != null && item.getName().equals(key)) {
@@ -120,7 +104,7 @@ public class Tracker {
                 index++;
             }
         }
-        return result;
+        return Arrays.copyOf(result, index);
     }
 
     /**
@@ -131,9 +115,24 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
+        int index = this.findIndexByID(id);
+        if (index != -1) {
+            result = this.items[index];
+        }
+        return result;
+    }
+
+    /**
+     * Метод выполняет поиск индекса по заданному id элемента
+     *
+     * @param id - id
+     * @return - индекс элемента
+     */
+    private int findIndexByID(String id) {
+        int result = -1;
         for (int i = 0; i < this.items.length; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
-                result = this.items[i];
+                result = i;
                 break;
             }
         }
