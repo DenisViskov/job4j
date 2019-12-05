@@ -10,28 +10,55 @@ import java.util.Scanner;
  * @since 04.12.2019
  */
 public class Matches {
+    /**
+     * Количество спичек на столе
+     */
+    private static int count = 11;
+
+    /**
+     * Первый игрок
+     */
+    private int first;
+
+    /**
+     * Второй игрок
+     */
+    private int second;
+
+    public Matches(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+
     public static void main(String[] args) {
-        int count = 11;
         Scanner input = new Scanner(System.in);
+        Matches matches = new Matches(0, 0);
         do {
-            if (count == 0) {
+            if (count <= 0) {
                 break;
             }
             System.out.println("Возьмите спички в кол-ве от 1 до 3");
-            int first = Integer.valueOf(input.nextLine());
-            count -= first;
-            String answer = count < 0 || first > 3 ? "Вы пытаетесь взять слишком большое кол-во спичек" : "Спичек на столе: " + count;
+            matches.first = Integer.valueOf(input.nextLine());
+            count -= matches.first;
+            String answer = count < 0 || matches.first > 3 ? "Вы пытаетесь взять слишком большое кол-во спичек" : "Спичек на столе: " + count;
             System.out.println(answer);
-            int second = Integer.valueOf(input.nextLine());
-            count -= second;
-            answer = count < 0 || second > 3 ? "Вы пытаетесь взять слишком большое кол-во спичек" : "Спичек на столе: " + count;
+            matches.second = Integer.valueOf(input.nextLine());
+            count -= matches.second;
+            answer = count < 0 || matches.second > 3 ? "Вы пытаетесь взять слишком большое кол-во спичек" : "Спичек на столе: " + count;
             System.out.println(answer);
-            if (count < 0) {
-                int temp = first > second ? count + first : count + second;
-                count += temp;
-            } else {
-
+            if (matches.first > 3 || matches.second > 3) {
+                System.out.println("Начинаем игру сначала");
+                matches.restartGame();
             }
         } while (true);
+    }
+
+    /**
+     * Метод выполняет сброс всех параметров в значения по умолчанию
+     */
+    private void restartGame() {
+        this.first = 0;
+        this.second = 0;
+        count = 11;
     }
 }
