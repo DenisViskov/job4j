@@ -38,27 +38,35 @@ public class Matches {
                 break;
             }
             System.out.println("Возьмите спички в кол-ве от 1 до 3");
-            matches.first = Integer.valueOf(input.nextLine());
+            matches.first = matches.check(input);
             count -= matches.first;
-            String answer = count < 0 || matches.first > 3 ? "Вы пытаетесь взять слишком большое кол-во спичек" : "Спичек на столе: " + count;
-            System.out.println(answer);
-            matches.second = Integer.valueOf(input.nextLine());
+            System.out.println("Спичек на столе: " + count);
+            matches.second = matches.check(input);
             count -= matches.second;
-            answer = count < 0 || matches.second > 3 ? "Вы пытаетесь взять слишком большое кол-во спичек" : "Спичек на столе: " + count;
-            System.out.println(answer);
-            if (matches.first > 3 || matches.second > 3) {
-                System.out.println("Начинаем игру сначала");
-                matches.restartGame();
-            }
+            System.out.println("Спичек на столе: " + count);
         } while (true);
     }
 
     /**
-     * Метод выполняет сброс всех параметров в значения по умолчанию
+     * Метод выполняет проверку правильности ввода
+     *
+     * @param input - Объект scanner
+     * @return - количество спичек
      */
-    private void restartGame() {
-        this.first = 0;
-        this.second = 0;
-        count = 11;
+    private int check(Scanner input) {
+        int result = Integer.valueOf(input.nextLine());
+        if (count == 0) {
+            System.out.println("Спичек больше нет");
+            System.out.println("Введите 0 для завершения игры");
+            result = Integer.valueOf(input.nextLine());
+        }
+        boolean condition = result > 3 || count <= 3 && result > count;
+        while (condition) {
+            System.out.println("Вы пытаетесь взять слишком большое количество спичек");
+            System.out.println("Повторите попытку: ");
+            result = Integer.valueOf(input.nextLine());
+            condition = result > 3 || count <= 3 && result > count;
+        }
+        return result;
     }
 }
