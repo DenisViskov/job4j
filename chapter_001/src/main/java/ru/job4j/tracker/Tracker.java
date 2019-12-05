@@ -7,7 +7,7 @@ import java.util.Random;
  * Класс реализует функционал обёртки над массивом
  *
  * @author Денис Висков
- * @version 1.0
+ * @version 1.1
  * @since 02.12.2019
  */
 public class Tracker {
@@ -98,9 +98,9 @@ public class Tracker {
     public Item[] findByName(String key) {
         Item[] result = new Item[this.position];
         int index = 0;
-        for (Item item : this.items) {
-            if (item != null && item.getName().equals(key)) {
-                result[index] = item;
+        for (int i = 0; i < this.position; i++) {
+            if (this.items[i].getName().equals(key)) {
+                result[index] = this.items[i];
                 index++;
             }
         }
@@ -130,8 +130,8 @@ public class Tracker {
      */
     private int findIndexByID(String id) {
         int result = -1;
-        for (int i = 0; i < this.items.length; i++) {
-            if (this.items[i] != null && this.items[i].getId().equals(id)) {
+        for (int i = 0; i < this.position; i++) {
+            if (this.items[i].getId().equals(id)) {
                 result = i;
                 break;
             }
