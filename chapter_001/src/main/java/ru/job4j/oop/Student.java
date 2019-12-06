@@ -7,7 +7,7 @@ package ru.job4j.oop;
  * @version 1.1
  * @since 27.11.2019
  */
-public class Student extends Object{
+public class Student extends Object {
 
     public static void main(String[] args) {
         Student petya = new Student();
