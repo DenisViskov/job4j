@@ -60,7 +60,7 @@ public class StartUI {
      * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private static void addNewItem(Input input, Tracker tracker) {
+    public static void addNewItem(Input input, Tracker tracker) {
         System.out.println("=== Create a new Item ====");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
@@ -74,7 +74,7 @@ public class StartUI {
      * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private static void showAllItems(Input input, Tracker tracker) {
+    public static void showAllItems(Input input, Tracker tracker) {
         System.out.println("=== Show all items ====");
         Item[] result = tracker.findAll();
         if (result.length == 0) {
@@ -95,7 +95,7 @@ public class StartUI {
      * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private static void editItem(Input input, Tracker tracker) {
+    public static void editItem(Input input, Tracker tracker) {
         System.out.println("=== Edit item ====");
         String id = input.askStr("Enter ID: ");
         String name = input.askStr("Enter new Name: ");
@@ -114,7 +114,7 @@ public class StartUI {
      * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private static void deleteItem(Input input, Tracker tracker) {
+    public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Delete item ====");
         String id = input.askStr("Enter ID: ");
         if (tracker.delete(id)) {
@@ -131,7 +131,7 @@ public class StartUI {
      * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private static void findItemById(Input input, Tracker tracker) {
+    public static void findItemById(Input input, Tracker tracker) {
         System.out.println("=== Find item by Id ====");
         String id = input.askStr("Enter ID: ");
         Item result = tracker.findById(id);
@@ -146,7 +146,7 @@ public class StartUI {
      * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private static void findItemByName(Input input, Tracker tracker) {
+    public static void findItemByName(Input input, Tracker tracker) {
         System.out.println("=== Find items by name ====");
         String name = input.askStr("Enter Name: ");
         for (Item item : tracker.findByName(name)) {
