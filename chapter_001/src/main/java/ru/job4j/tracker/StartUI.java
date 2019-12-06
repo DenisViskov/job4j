@@ -14,27 +14,26 @@ public class StartUI {
     /**
      * Метод реализует пользовательский интерфейс
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Scanner
      * @param tracker - Обьект Tracker
      */
-    public void init(Scanner scanner, Tracker tracker) {
+    public void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
             this.showMenu();
-            System.out.print("Select: ");
-            int select = Integer.valueOf(scanner.nextLine());
+            int select = input.askInt("Select: ");
             if (select == 0) {
-                this.addNewItem(scanner, tracker);
+                this.addNewItem(input, tracker);
             } else if (select == 1) {
-                this.showAllItems(scanner, tracker);
+                this.showAllItems(input, tracker);
             } else if (select == 2) {
-                this.editItem(scanner, tracker);
+                this.editItem(input, tracker);
             } else if (select == 3) {
-                this.deleteItem(scanner, tracker);
+                this.deleteItem(input, tracker);
             } else if (select == 4) {
-                this.findItemById(scanner, tracker);
+                this.findItemById(input, tracker);
             } else if (select == 5) {
-                this.findItemByName(scanner, tracker);
+                this.findItemByName(input, tracker);
             } else if (select == 6) {
                 run = false;
             }
@@ -58,13 +57,12 @@ public class StartUI {
     /**
      * Метод реализует создание и добавление нового элемента
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private void addNewItem(Scanner scanner, Tracker tracker) {
+    private void addNewItem(Input input, Tracker tracker) {
         System.out.println("=== Create a new Item ====");
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
+        String name = input.askStr("Enter name: ");
         Item item = new Item(name);
         tracker.add(item);
         System.out.println("New Item was been added");
@@ -73,10 +71,10 @@ public class StartUI {
     /**
      * Метод реализует отображение всех элементов Items
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private void showAllItems(Scanner scanner, Tracker tracker) {
+    private void showAllItems(Input input, Tracker tracker) {
         System.out.println("=== Show all items ====");
         Item[] result = tracker.findAll();
         if (result.length == 0) {
@@ -94,15 +92,13 @@ public class StartUI {
     /**
      * Метод реализует редактирование элементов
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private void editItem(Scanner scanner, Tracker tracker) {
+    private void editItem(Input input, Tracker tracker) {
         System.out.println("=== Edit item ====");
-        System.out.println("Enter ID: ");
-        String id = scanner.nextLine();
-        System.out.println("Enter new Name: ");
-        String name = scanner.nextLine();
+        String id = input.askStr("Enter ID: ");
+        String name = input.askStr("Enter new Name: ");
         Item result = new Item(name);
         if (tracker.replace(id, result)) {
             System.out.println("Edit complete");
@@ -115,13 +111,12 @@ public class StartUI {
     /**
      * Метод реализует удаление элемента
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private void deleteItem(Scanner scanner, Tracker tracker) {
+    private void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Delete item ====");
-        System.out.println("Enter ID: ");
-        String id = scanner.nextLine();
+        String id = input.askStr("Enter ID: ");
         if (tracker.delete(id)) {
             System.out.println("Item was been deleted");
         } else {
@@ -133,13 +128,12 @@ public class StartUI {
     /**
      * Метод реализует поиск элемента по его ID
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private void findItemById(Scanner scanner, Tracker tracker) {
+    private void findItemById(Input input, Tracker tracker) {
         System.out.println("=== Find item by Id ====");
-        System.out.println("Enter ID: ");
-        String id = scanner.nextLine();
+        String id = input.askStr("Enter ID: ");
         Item result = tracker.findById(id);
         System.out.println("Item ID: " + result.getId() + " Item name: " + result.getName());
         System.out.println("If you see this message it mean your entered ID it was not found");
@@ -149,13 +143,12 @@ public class StartUI {
     /**
      * Метод реализует поиск элементов с заданным именем
      *
-     * @param scanner - Объект Scanner
+     * @param input   - Объект Input
      * @param tracker - обьект tracker
      */
-    private void findItemByName(Scanner scanner, Tracker tracker) {
+    private void findItemByName(Input input, Tracker tracker) {
         System.out.println("=== Find items by name ====");
-        System.out.println("Enter Name: ");
-        String name = scanner.nextLine();
+        String name = input.askStr("Enter Name: ");
         for (Item item : tracker.findByName(name)) {
             System.out.println("Item ID: " + item.getId() + " Item name: " + item.getName());
         }
@@ -164,8 +157,8 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(scanner, tracker);
+        new StartUI().init(input, tracker);
     }
 }
