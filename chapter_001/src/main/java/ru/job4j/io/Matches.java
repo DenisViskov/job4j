@@ -13,7 +13,7 @@ public class Matches {
     /**
      * Количество спичек на столе
      */
-    private static int count = 11;
+    private int count = 11;
 
     /**
      * Первый игрок
@@ -34,16 +34,16 @@ public class Matches {
         Scanner input = new Scanner(System.in);
         Matches matches = new Matches(0, 0);
         do {
-            if (count <= 0) {
+            if (matches.count <= 0) {
                 break;
             }
             System.out.println("Возьмите спички в кол-ве от 1 до 3");
             matches.first = matches.check(input);
-            count -= matches.first;
-            System.out.println("Спичек на столе: " + count);
+            matches.count -= matches.first;
+            System.out.println("Спичек на столе: " + matches.count);
             matches.second = matches.check(input);
-            count -= matches.second;
-            System.out.println("Спичек на столе: " + count);
+            matches.count -= matches.second;
+            System.out.println("Спичек на столе: " + matches.count);
         } while (true);
     }
 
@@ -55,17 +55,17 @@ public class Matches {
      */
     private int check(Scanner input) {
         int result = Integer.valueOf(input.nextLine());
-        if (count == 0) {
+        if (this.count == 0) {
             System.out.println("Спичек больше нет");
             System.out.println("Введите 0 для завершения игры");
             result = Integer.valueOf(input.nextLine());
         }
-        boolean condition = result > 3 || count <= 3 && result > count;
+        boolean condition = result > 3 || this.count <= 3 && result > this.count;
         while (condition) {
             System.out.println("Вы пытаетесь взять слишком большое количество спичек");
             System.out.println("Повторите попытку: ");
             result = Integer.valueOf(input.nextLine());
-            condition = result > 3 || count <= 3 && result > count;
+            condition = result > 3 || this.count <= 3 && result > this.count;
         }
         return result;
     }
