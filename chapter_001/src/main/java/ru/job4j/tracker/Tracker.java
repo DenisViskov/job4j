@@ -131,7 +131,7 @@ public class Tracker {
     private int findIndexByID(String id) {
         int result = -1;
         for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
+            if (this.items[i] != null && this.items[i].getId().equals(id)) {
                 result = i;
                 break;
             }
