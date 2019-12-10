@@ -3,6 +3,8 @@ package ru.job4j.stragery;
 
 import org.junit.Test;
 
+import java.util.StringJoiner;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -13,11 +15,11 @@ public class TriangleTest {
         assertThat(
                 triangle.draw(),
                 is(
-                        new StringBuilder()
-                                .append("    *    " + '\n')
-                                .append("   * *   " + '\n')
-                                .append("  *   *  " + '\n')
-                                .append(" * * * * " + '\n')
+                        new StringJoiner(System.lineSeparator())
+                                .add("    *    ")
+                                .add("   * *   ")
+                                .add("  *   *  ")
+                                .add(" * * * * ")
                                 .toString()
                 )
         );

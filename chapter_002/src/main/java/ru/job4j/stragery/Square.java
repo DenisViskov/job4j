@@ -1,5 +1,7 @@
 package ru.job4j.stragery;
 
+import java.util.StringJoiner;
+
 /**
  * Класс реализует функциональность квадрата
  *
@@ -16,11 +18,11 @@ public class Square implements Shape {
      */
     @Override
     public String draw() {
-        StringBuilder result = new StringBuilder();
-        result.append("**********" + '\n');
-        result.append("**********" + '\n');
-        result.append("**********" + '\n');
-        result.append("**********" + '\n');
+        StringJoiner result = new StringJoiner(System.lineSeparator());
+        result.add("**********");
+        result.add("**********");
+        result.add("**********");
+        result.add("**********");
         return result.toString();
     }
 }
