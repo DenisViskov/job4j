@@ -15,5 +15,4 @@ public class StartUITest {
         new StartUI().init(input, new Tracker(), new UserAction[]{action});
         assertThat(action.isCall(), is(true));
     }
-
 }
