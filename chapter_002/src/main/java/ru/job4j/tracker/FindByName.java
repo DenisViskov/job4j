@@ -28,8 +28,10 @@ public class FindByName implements UserAction {
         for (Item item : tracker.findByName(name)) {
             System.out.println("Item ID: " + item.getId() + " Item name: " + item.getName());
         }
-        System.out.println("If you see this message it mean your entered Name it was not found");
-        System.out.println("Try again");
+        if (tracker.findByName(name).length == 0) {
+            System.out.println("If you see this message it mean your entered Name it was not found");
+            System.out.println("Try again");
+        }
         return true;
     }
 }
