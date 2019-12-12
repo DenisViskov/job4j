@@ -43,4 +43,16 @@ public class StubInput implements Input {
     public int askInt(String question) {
         return Integer.valueOf(askStr(question));
     }
+
+    /**
+     * Метод вызывает внутри себя  askInt(String question)
+     *
+     * @param question - вопрос
+     * @param max      - максимальное значение
+     * @return - ответ
+     */
+    @Override
+    public int askInt(String question, int max) {
+        return askInt(question);
+    }
 }

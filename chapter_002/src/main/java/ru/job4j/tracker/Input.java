@@ -24,4 +24,13 @@ public interface Input {
      * @return - ответ
      */
     int askInt(String question);
+
+    /**
+     * Реализация валидации вопроса
+     *
+     * @param question - вопрос
+     * @param max      - максимальное значение
+     * @return - ответ
+     */
+    int askInt(String question, int max);
 }
