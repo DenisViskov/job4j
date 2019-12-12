@@ -22,7 +22,7 @@ public class ShowItemsTest {
         ShowItems act = new ShowItems();
         act.execute(new StubInput(new String[]{}), tracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
-                .add("Item ID: " + item.getId() + " " + "Item name: " + item.getName())
+                .add(String.format("Item ID: %s Item name: %s", item.getId(), item.getName()))
                 .toString();
         assertThat(new String(out.toByteArray()), is(expect));
         System.setOut(def);

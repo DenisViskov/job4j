@@ -25,10 +25,11 @@ public class FindByName implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String name = input.askStr("Enter Name: ");
-        for (Item item : tracker.findByName(name)) {
+        Item[] result = tracker.findByName(name);
+        for (Item item : result) {
             System.out.println("Item ID: " + item.getId() + " Item name: " + item.getName());
         }
-        if (tracker.findByName(name).length == 0) {
+        if (result.length == 0) {
             System.out.println("If you see this message it mean your entered Name it was not found");
             System.out.println("Try again");
         }
