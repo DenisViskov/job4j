@@ -10,6 +10,9 @@ import java.util.Scanner;
  * @since 06.12.2019
  */
 public class ConsoleInput implements Input {
+    /**
+     * Объект scanner
+     */
     private Scanner scanner = new Scanner(System.in);
 
     /**

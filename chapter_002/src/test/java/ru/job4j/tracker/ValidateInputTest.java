@@ -20,8 +20,24 @@ public class ValidateInputTest {
         );
         input.askInt("Enter", 1);
         assertThat(
-                mem,
+                mem.toString(),
                 is(String.format("Please enter validate data again%n"))
+        );
+        System.setOut(out);
+    }
+
+    @Test
+    public void whenInvalidInputKeyMenu() {
+        ByteArrayOutputStream mem = new ByteArrayOutputStream();
+        PrintStream out = System.out;
+        System.setOut(new PrintStream(mem));
+        ValidateInput input = new ValidateInput(
+                new ConsoleInput()
+        );
+        input.askInt("Enter", 6);
+        assertThat(
+                mem.toString(),
+                is(String.format("Please select key from menu%n"))
         );
         System.setOut(out);
     }
