@@ -32,7 +32,7 @@ public class ValidateInputTest {
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
         ValidateInput input = new ValidateInput(
-                new ConsoleInput()
+                new StubInput(new String[]{"-1", "1"})
         );
         input.askInt("Enter", 6);
         assertThat(
