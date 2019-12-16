@@ -4,7 +4,7 @@ package ru.job4j.tracker;
  * Enum реализующий шаблон проектирования Singleton
  *
  * @author Денис Висков
- * @version 1.0
+ * @version 1.1
  * @since 13.12.2019
  */
 public enum TrackerSingleFirst {
