@@ -30,10 +30,6 @@ public class Machine {
             for (int i = 0; i < this.coins.length; i++) {
                 if (difference - this.coins[i] >= 0) {
                     difference -= this.coins[i];
-                } else {
-                    continue;
-                }
-                if (difference >= 0) {
                     rsl[size] = this.coins[i];
                     size = rsl[size] > 0 ? ++size : size;
                 }
