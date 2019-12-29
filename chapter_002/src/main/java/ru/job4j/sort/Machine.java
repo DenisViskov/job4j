@@ -28,15 +28,12 @@ public class Machine {
         int difference = money - price;
         if (difference != 0) {
             for (int i = 0; i < this.coins.length; i++) {
-                while (difference >= 0) {
-                    difference -= this.coins[i];
-                    rsl[size] = difference >= 0 ? this.coins[i] : 0;
+                difference -= this.coins[i];
+                if (difference >= 0) {
+                    rsl[size] = this.coins[i];
                     size = rsl[size] > 0 ? ++size : size;
-                    if (difference <= 0) {
-                        difference += this.coins[i];
-                        break;
-                    }
                 }
+                difference = difference < 0 ? this.coins[i] + difference : difference;
             }
         }
         return Arrays.copyOf(rsl, size);
