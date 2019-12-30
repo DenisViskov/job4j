@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * Класс реализует функционал отображения всеъ элементов
  *
@@ -24,13 +26,13 @@ public class ShowItems implements UserAction {
      */
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        Item[] result = tracker.findAll();
-        if (result.length == 0) {
+        ArrayList<Item> result = tracker.findAll();
+        if (result.size() == 0) {
             System.out.println("Items list is empty");
         }
-        for (int i = 0; i < result.length; i++) {
-            if (result[i] != null) {
-                System.out.println("Item ID: " + result[i].getId() + " Item name: " + result[i].getName());
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i) != null) {
+                System.out.println("Item ID: " + result.get(i).getId() + " Item name: " + result.get(i).getName());
             } else {
                 System.out.println("Items list is empty");
             }

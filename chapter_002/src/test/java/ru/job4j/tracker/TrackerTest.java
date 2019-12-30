@@ -3,6 +3,8 @@ package ru.job4j.tracker;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -63,9 +65,9 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         tracker.add(new Item("TV"));
         tracker.add(new Item("Radio"));
-        Item[] out = tracker.findAll();
-        for (int i = 0; i < out.length; i++) {
-            if (out[i] == null) {
+        ArrayList<Item> out = tracker.findAll();
+        for (int i = 0; i < out.size(); i++) {
+            if (out.get(i) == null) {
                 expected = false;
                 break;
             }
@@ -83,8 +85,8 @@ public class TrackerTest {
         tracker.add(new Item("Smartphone"));
         tracker.add(new Item("TV"));
         String key = "TV";
-        Item[] out = tracker.findByName(key);
-        if (out.length == 0) {
+        ArrayList<Item> out = tracker.findByName(key);
+        if (out.size() == 0) {
             expected = false;
         }
         Assert.assertTrue(expected);
@@ -100,8 +102,8 @@ public class TrackerTest {
         tracker.add(new Item("Smartphone"));
         tracker.add(new Item("TV"));
         String key = "Vfgh";
-        Item[] out = tracker.findByName(key);
-        if (out.length == 0) {
+        ArrayList<Item> out = tracker.findByName(key);
+        if (out.size() == 0) {
             expected = false;
         }
         Assert.assertFalse(expected);
