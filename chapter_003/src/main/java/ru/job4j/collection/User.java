@@ -11,7 +11,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 02.01.2020
  */
-public class User implements Comparable {
+public class User implements Comparable<User> {
     /**
      * Имя
      */
@@ -46,11 +46,10 @@ public class User implements Comparable {
     }
 
     @Override
-    public int compareTo(@NotNull Object o) {
-        User user = (User) o;
-        int result = this.name.compareTo(user.name);
+    public int compareTo(@NotNull User o) {
+        int result = this.name.compareTo(o.name);
         if (result == 0) {
-            result = Integer.valueOf(this.age).compareTo(Integer.valueOf(user.age));
+            result = this.age - o.age;
         }
         return result;
     }
