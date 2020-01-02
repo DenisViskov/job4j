@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Класс модель Item - описывает бизнес модель заявки
@@ -10,7 +8,7 @@ import java.util.Comparator;
  * @version 1.0
  * @since 02.12.2019
  */
-public class Item implements Comparable<Item> {
+public class Item {
     /**
      * Уникальный ключ
      */
@@ -44,10 +42,5 @@ public class Item implements Comparable<Item> {
     @Override
     public String toString() {
         return "Name: " + this.getName();
-    }
-
-    @Override
-    public int compareTo(Item o) {
-        return this.getName().compareTo(o.getName());
     }
 }
