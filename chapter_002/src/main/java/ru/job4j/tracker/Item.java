@@ -10,7 +10,7 @@ import java.util.Comparator;
  * @version 1.0
  * @since 02.12.2019
  */
-public class Item implements Comparator<Item> {
+public class Item implements Comparable<Item> {
     /**
      * Уникальный ключ
      */
@@ -42,12 +42,12 @@ public class Item implements Comparator<Item> {
     }
 
     @Override
-    public int compare(Item o1, Item o2) {
-        return o1.getId().compareTo(o2.getId());
+    public String toString() {
+        return "Name: " + this.getName();
     }
 
     @Override
-    public Comparator<Item> reversed() {
-        return Collections.reverseOrder();
+    public int compareTo(Item o) {
+        return CharSequence.compare(o.getName(), this.getName());
     }
 }
