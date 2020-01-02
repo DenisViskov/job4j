@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс реализует функционал поиска элемента по имени
@@ -27,7 +28,7 @@ public class FindByName implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String name = input.askStr("Enter Name: ");
-        ArrayList<Item> result = tracker.findByName(name);
+        List<Item> result = tracker.findByName(name);
         for (Item item : result) {
             System.out.println("Item ID: " + item.getId() + " Item name: " + item.getName());
         }

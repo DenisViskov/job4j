@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -65,7 +66,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         tracker.add(new Item("TV"));
         tracker.add(new Item("Radio"));
-        ArrayList<Item> out = tracker.findAll();
+        List<Item> out = tracker.findAll();
         for (int i = 0; i < out.size(); i++) {
             if (out.get(i) == null) {
                 expected = false;
@@ -85,7 +86,7 @@ public class TrackerTest {
         tracker.add(new Item("Smartphone"));
         tracker.add(new Item("TV"));
         String key = "TV";
-        ArrayList<Item> out = tracker.findByName(key);
+        List<Item> out = tracker.findByName(key);
         if (out.size() == 0) {
             expected = false;
         }
@@ -102,7 +103,7 @@ public class TrackerTest {
         tracker.add(new Item("Smartphone"));
         tracker.add(new Item("TV"));
         String key = "Vfgh";
-        ArrayList<Item> out = tracker.findByName(key);
+        List<Item> out = tracker.findByName(key);
         if (out.size() == 0) {
             expected = false;
         }
