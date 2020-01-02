@@ -19,7 +19,7 @@ public class ItemSortTest {
                 new Item("a"),
                 new Item("c"));
         List<Item> out = new ArrayList<>();
-        Collections.sort(unsortedList, new ItemSort());
+        Collections.sort(unsortedList, new ItemSort().order());
         out = unsortedList;
         Assert.assertEquals(expected.toString(), out.toString());
     }
@@ -33,7 +33,7 @@ public class ItemSortTest {
                 new Item("a"),
                 new Item("c"));
         List<Item> out = new ArrayList<>();
-        Collections.sort(unsortedList, new ItemSort().reversed());
+        Collections.sort(unsortedList, new ItemSort().reverse());
         out = unsortedList;
         Assert.assertEquals(expected.toString(), out.toString());
     }

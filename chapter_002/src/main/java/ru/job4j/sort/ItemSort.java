@@ -12,14 +12,22 @@ import java.util.Comparator;
  * @version 1.0
  * @since 02.01.2020
  */
-public class ItemSort implements Comparator<Item> {
-    @Override
-    public int compare(Item o1, Item o2) {
-        return o1.getName().compareTo(o2.getName());
+public class ItemSort {
+    public Comparator<Item> order() {
+        return new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        };
     }
 
-    @Override
-    public Comparator<Item> reversed() {
-        return Collections.reverseOrder(this);
+    public Comparator<Item> reverse() {
+        return new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o2.getName().compareTo(o1.getName());
+            }
+        };
     }
 }
