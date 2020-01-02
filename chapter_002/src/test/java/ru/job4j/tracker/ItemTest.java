@@ -12,9 +12,9 @@ public class ItemTest {
         items.add(new Item("Apple"));
         items.add(new Item("Pineapple"));
         items.add(new Item("Bananas"));
-        List<Item> expected = Arrays.asList(new Item("Pineapple"),
+        List<Item> expected = Arrays.asList(new Item("Apple"),
                 new Item("Bananas"),
-                new Item("Apple"));
+                new Item("Pineapple"));
         Collections.sort(items);
         Assert.assertEquals(expected.toString(), items.toString());
     }
@@ -23,11 +23,11 @@ public class ItemTest {
     public void reverseSortedTest() {
         List<Item> items = new ArrayList<>();
         items.add(new Item("Apple"));
-        items.add(new Item("Pineapple"));
         items.add(new Item("Bananas"));
-        List<Item> expected = Arrays.asList(new Item("Apple"),
+        items.add(new Item("Pineapple"));
+        List<Item> expected = Arrays.asList(new Item("Pineapple"),
                 new Item("Bananas"),
-                new Item("Pineapple"));
+                new Item("Apple"));
         Collections.sort(items, Collections.reverseOrder());
         Assert.assertEquals(expected.toString(), items.toString());
     }

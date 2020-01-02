@@ -48,6 +48,6 @@ public class Item implements Comparable<Item> {
 
     @Override
     public int compareTo(Item o) {
-        return CharSequence.compare(o.getName(), this.getName());
+        return this.getName().compareTo(o.getName());
     }
 }
