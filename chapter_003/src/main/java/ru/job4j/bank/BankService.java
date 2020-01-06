@@ -39,9 +39,11 @@ public class BankService {
      * @param account  - счёт
      */
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
-        if (!this.users.get(user).contains(account)) {
-            this.users.get(user).add(account);
+        if (findByPassport(passport) != null) {
+            User user = findByPassport(passport);
+            if (!this.users.get(user).contains(account)) {
+                this.users.get(user).add(account);
+            }
         }
     }
 
