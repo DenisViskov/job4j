@@ -57,4 +57,21 @@ public class Account {
     public int hashCode() {
         return Objects.hash(requisite);
     }
+
+    /**
+     * Метод выполняет перевод денежных средств с одного счёта на другой
+     * Выполняет проверку на наличие денежных средств на счёте отправителя
+     *
+     * @param first  - счёт отправителя
+     * @param second - счёт получателя
+     * @param amount - сумма перевода
+     */
+    public boolean transferCash(Account first, Account second, double amount) {
+        if (first.getBalance() - amount >= 0) {
+            first.balance -= amount;
+            second.balance += amount;
+            return true;
+        }
+        return false;
+    }
 }
