@@ -25,7 +25,7 @@ public class StringCompare implements Comparator<String> {
         int result = 0;
         for (int i = 0; i < limit; i++) {
             result = Character.compare(first[i], second[i]);
-            if (result != 0 && left.length() == right.length()) {
+            if (result != 0) {
                 return result;
             }
         }
