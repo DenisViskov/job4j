@@ -1,8 +1,6 @@
 package ru.job4j.collection;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Класс реализует функционал сортировки департаментов
@@ -20,19 +18,30 @@ public class Departments {
      * @return - список департаментов
      */
     public static List<String> fillGaps(List<String> deps) {
-        HashSet<String> tmp = new HashSet<>();
+        Set<String> tmp = new HashSet<>();
+        List<String> result;
         for (String value : deps) {
             String start = "";
             for (String el : value.split("/")) {
-                tmp.add(start + "/" + el);
+                tmp.add(start + el);
+                start += el + "/";
             }
         }
-        return new ArrayList<>(tmp);
+        result = new ArrayList<>(tmp);
+        sortAsc(result);
+        return result;
     }
 
+    /**
+     * Метод реализует функционал простой сортировки подразделений организации
+     *
+     * @param orgs - организация
+     */
     public static void sortAsc(List<String> orgs) {
+        Collections.sort(orgs);
     }
 
     public static void sortDesc(List<String> orgs) {
+
     }
 }
