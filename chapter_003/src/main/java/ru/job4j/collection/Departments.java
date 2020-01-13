@@ -19,7 +19,6 @@ public class Departments {
      */
     public static List<String> fillGaps(List<String> deps) {
         Set<String> tmp = new HashSet<>();
-        List<String> result;
         for (String value : deps) {
             String start = "";
             for (String el : value.split("/")) {
@@ -27,21 +26,37 @@ public class Departments {
                 start += el + "/";
             }
         }
-        result = new ArrayList<>(tmp);
-        sortAsc(result);
-        return result;
+        return new ArrayList<>(tmp);
     }
 
     /**
-     * Метод реализует функционал простой сортировки подразделений организации
+     * Метод реализует функционал поиска недостающих департаментов
+     * и стандартной сортировки подразделений организации
      *
-     * @param orgs - организация
+     * @param orgs
+     * @return - сортированный список
      */
-    public static void sortAsc(List<String> orgs) {
-        Collections.sort(orgs);
+    public static List sortAsc(List<String> orgs) {
+        orgs = fillGaps(orgs);
+        Collections.sort(orgs, new DepDescComp());
+        return orgs;
     }
 
-    public static void sortDesc(List<String> orgs) {
-
+    /**
+     * Метод реализует функционал поиска недостающих департаментов
+     * и обратной сортировки подразделений организации
+     *
+     * @param orgs - организация
+     * @return - сортированный список
+     */
+    public static List sortDesc(List<String> orgs) {
+        orgs = fillGaps(orgs);
+        ListIterator<String> listIterator = orgs.listIterator();
+        DepDescComp increase = new DepDescComp();
+        DepAscComp decrease = new DepAscComp();
+        while (listIterator.hasNext()) {
+            int result = decrease.compare(listIterator.next(),listIterator.next());
+        }
+        return null;
     }
 }
