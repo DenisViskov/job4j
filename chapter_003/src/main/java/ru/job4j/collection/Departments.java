@@ -51,7 +51,7 @@ public class Departments {
      */
     public static List sortDesc(List<String> orgs) {
         orgs = fillGaps(orgs);
-        Collections.sort(orgs,new DepAscComp());
+        Collections.sort(orgs, new DepAscComp());
         return orgs;
     }
 }
