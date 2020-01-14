@@ -51,17 +51,7 @@ public class Departments {
      */
     public static List sortDesc(List<String> orgs) {
         orgs = fillGaps(orgs);
-        DepDescComp increase = new DepDescComp();
-        DepAscComp decrease = new DepAscComp();
-        ListIterator<String> listIterator = orgs.listIterator();
-        while (listIterator.hasNext()) {
-            String first = listIterator.next();
-            String second = listIterator.next();
-            int result = decrease.compare(first, second);
-            if (result != 0) {
-                // Какой алгоритм использовать не знаю
-            }
-        }
-        return null;
+        Collections.sort(orgs,new DepAscComp());
+        return orgs;
     }
 }
