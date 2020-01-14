@@ -51,11 +51,16 @@ public class Departments {
      */
     public static List sortDesc(List<String> orgs) {
         orgs = fillGaps(orgs);
-        ListIterator<String> listIterator = orgs.listIterator();
         DepDescComp increase = new DepDescComp();
         DepAscComp decrease = new DepAscComp();
+        ListIterator<String> listIterator = orgs.listIterator();
         while (listIterator.hasNext()) {
-            int result = decrease.compare(listIterator.next(),listIterator.next());
+            String first = listIterator.next();
+            String second = listIterator.next();
+            int result = decrease.compare(first, second);
+            if (result != 0) {
+                // Какой алгоритм использовать не знаю
+            }
         }
         return null;
     }
