@@ -1,8 +1,8 @@
 package ru.job4j.lambda;
 
-
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,8 +20,15 @@ public class FunctionDiapasonTest {
 
     @Test
     public void QuadraticFunctionTest() {
-        List<Double> result = FunctionDiapason.diapason(5, 8, x -> Math.pow(2 * x,2) + (2 * x) + 1);
-        List<Double> expected = Arrays.asList(11D, 13D, 15D);
+        List<Double> result = FunctionDiapason.diapason(5, 8, x -> (2 * x * x) + (2 * 2) + 1);
+        List<Double> expected = Arrays.asList(55D, 77D, 103D);
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void LogarifmicFunctionTest() {
+        List<Double> result = FunctionDiapason.diapason(5, 8, x -> Math.log(x));
+        List<Double> expected = Arrays.asList(1.61D, 1.79D, 1.95D);
         assertThat(result, is(expected));
     }
 
