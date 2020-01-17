@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Класс реализует функционал поиска элемента по имени
@@ -26,15 +26,15 @@ public class FindByName implements UserAction {
      * @param tracker - обьект tracker
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> consumer) {
         String name = input.askStr("Enter Name: ");
         List<Item> result = tracker.findByName(name);
         for (Item item : result) {
-            System.out.println("Item ID: " + item.getId() + " Item name: " + item.getName());
+            consumer.accept("Item ID: " + item.getId() + " Item name: " + item.getName());
         }
         if (result.size() == 0) {
-            System.out.println("If you see this message it mean your entered Name it was not found");
-            System.out.println("Try again");
+            consumer.accept("If you see this message it mean your entered Name it was not found");
+            consumer.accept("Try again");
         }
         return true;
     }

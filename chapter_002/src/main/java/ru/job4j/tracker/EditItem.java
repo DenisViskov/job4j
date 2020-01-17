@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Класс реализует функционал редактирования элементов
  *
@@ -23,15 +25,15 @@ public class EditItem implements UserAction {
      * @param tracker - обьект tracker
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> consumer) {
         String id = input.askStr("Enter ID: ");
         String name = input.askStr("Enter new Name: ");
         Item result = new Item(name);
         if (tracker.replace(id, result)) {
-            System.out.println("Edit complete");
+            consumer.accept("Edit complete");
         } else {
-            System.out.println("Entered ID is not found");
-            System.out.println("Try again");
+            consumer.accept("Entered ID is not found");
+            consumer.accept("Try again");
         }
         return true;
     }

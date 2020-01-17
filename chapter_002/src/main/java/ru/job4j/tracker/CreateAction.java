@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Класс реализует функционал добавления нового элемента
  *
@@ -23,11 +25,11 @@ public class CreateAction implements UserAction {
      * @param tracker - обьект tracker
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> consumer) {
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
         tracker.add(item);
-        System.out.println("New Item was been added");
+        consumer.accept("New Item was been added");
         return true;
     }
 }

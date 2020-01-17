@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Интерфейс реализации действий пользователя
  *
@@ -22,6 +24,6 @@ public interface UserAction {
      * @param tracker - трекер
      * @return - true или false в зависимости от того вышел пользователь или нет
      */
-    boolean execute(Input input, Tracker tracker);
+    boolean execute(Input input, Tracker tracker, Consumer<String> consumer);
 }
 

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Класс реализует функционал поиска по ID элемента
  *
@@ -23,12 +25,12 @@ public class FindById implements UserAction {
      * @param tracker - обьект tracker
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> consumer) {
         String id = input.askStr("Enter ID: ");
         Item result = tracker.findById(id);
-        System.out.println("Item ID: " + result.getId() + " Item name: " + result.getName());
-        System.out.println("If you see this message it mean your entered ID it was not found");
-        System.out.println("Try again");
+        consumer.accept("Item ID: " + result.getId() + " Item name: " + result.getName());
+        consumer.accept("If you see this message it mean your entered ID it was not found");
+        consumer.accept("Try again");
         return true;
     }
 }

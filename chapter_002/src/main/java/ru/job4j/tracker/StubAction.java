@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Класс реализует функционал загрузки действия для проверки выполнения теста
  *
@@ -29,7 +31,7 @@ public class StubAction implements UserAction {
      * @return - true или false
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> consumer) {
         call = true;
         return false;
     }

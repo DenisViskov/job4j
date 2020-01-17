@@ -20,7 +20,7 @@ public class ShowItemsTest {
         Item item = new Item("fix bug");
         tracker.add(item);
         ShowItems act = new ShowItems();
-        act.execute(new StubInput(new String[]{}), tracker);
+        act.execute(new StubInput(new String[]{}), tracker, System.out::println);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(String.format("Item ID: %s Item name: %s", item.getId(), item.getName()))
                 .toString();

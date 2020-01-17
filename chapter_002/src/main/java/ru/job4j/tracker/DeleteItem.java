@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Класс реализует функционал удаления элементов
  *
@@ -23,13 +25,13 @@ public class DeleteItem implements UserAction {
      * @param tracker - обьект tracker
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> consumer) {
         String id = input.askStr("Enter ID: ");
         if (tracker.delete(id)) {
-            System.out.println("Item was been deleted");
+            consumer.accept("Item was been deleted");
         } else {
-            System.out.println("Entered ID is not found");
-            System.out.println("Try again");
+            consumer.accept("Entered ID is not found");
+            consumer.accept("Try again");
         }
         return true;
     }
