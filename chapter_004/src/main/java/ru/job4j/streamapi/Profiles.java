@@ -21,6 +21,20 @@ public class Profiles {
     public List<Address> collect(List<Profile> profiles) {
         List<Address> result = profiles.stream().
                 map(x -> x.getAddress()).
+                distinct().
+                collect(Collectors.toList());
+        return result;
+    }
+
+    /**
+     * Method of sorting adresses
+     *
+     * @param addresses - list of adresses
+     * @return - sorted list
+     */
+    public List<Address> sortesAdresses(List<Address> addresses) {
+        List<Address> result = addresses.stream().
+                sorted().
                 collect(Collectors.toList());
         return result;
     }

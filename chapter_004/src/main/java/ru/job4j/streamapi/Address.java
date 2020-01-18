@@ -1,5 +1,7 @@
 package ru.job4j.streamapi;
 
+import java.util.Objects;
+
 /**
  * Class realizes model of data Adresses
  *
@@ -7,7 +9,7 @@ package ru.job4j.streamapi;
  * @version 1.0
  * @since 18.01.2020
  */
-public class Address {
+public class Address implements Comparable<Address> {
     /**
      * City of lives client
      */
@@ -35,5 +37,28 @@ public class Address {
         this.apartment = apartment;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Address address = (Address) o;
+        return home == address.home
+                && apartment == address.apartment
+                && city.equals(address.city)
+                && street.equals(address.street);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, street, home, apartment);
+    }
+
+    @Override
+    public int compareTo(Address o) {
+        return this.city.compareTo(o.city);
+    }
 }
