@@ -1,6 +1,7 @@
 package ru.job4j.streamapi;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,19 @@ public class School {
         List<Student> result = students.stream().
                 filter(predict).
                 collect(Collectors.toList());
+        return result;
+    }
+
+    /**
+     * Method of convert list to Map
+     *
+     * @param students - students
+     * @return - Map students
+     */
+    public Map<String, Student> listToMap(List<Student> students) {
+        Map<String, Student> result = students.stream().
+                collect(Collectors.toMap(x -> x.lastName,
+                        x -> x));
         return result;
     }
 }

@@ -13,8 +13,17 @@ public class Student {
      */
     int score;
 
+    /**
+     * Last name
+     */
+    String lastName;
+
     public Student(int score) {
         this.score = score;
+    }
+
+    public Student(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
