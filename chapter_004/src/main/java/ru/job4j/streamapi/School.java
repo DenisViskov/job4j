@@ -36,6 +36,7 @@ public class School {
      */
     public Map<String, Student> listToMap(List<Student> students) {
         Map<String, Student> result = students.stream().
+                distinct().
                 collect(Collectors.toMap(x -> x.lastName,
                         x -> x));
         return result;
