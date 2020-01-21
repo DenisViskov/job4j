@@ -1,6 +1,8 @@
 package ru.job4j.streamapi;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class realizes function of changing integer matrix to List
@@ -18,7 +20,9 @@ public class Matrix {
      * @return - List integer
      */
     public List matrixToList(Integer[][] matrix) {
-        //List<List<Integer>> result = Arrays.stream(matrix).flatMap(e -> Arrays.asList(e).stream()).collect(Collectors.toList());
-        return null;
+        List<Integer> result = Stream.of(matrix).
+                flatMap(e -> Stream.of(e)).
+                collect(Collectors.toList());
+        return result;
     }
 }
