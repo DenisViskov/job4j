@@ -40,12 +40,11 @@ public class BankService {
      * @param account  - счёт
      */
     public void addAccount(String passport, Account account) {
-        if (findByPassport(passport) != null) {
-            User user = findByPassport(passport);
-            if (!this.users.get(user).contains(account)) {
-                this.users.get(user).add(account);
-            }
-        }
+        User user = findByPassport(passport);
+        Stream.of(this.users).
+                flatMap(e -> Stream.of(e.get(user))).
+                filter(e -> !e.contains(account)).
+                forEach(e -> e.add(account));
     }
 
     /**
