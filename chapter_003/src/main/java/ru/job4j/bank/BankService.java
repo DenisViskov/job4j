@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Класс реализует функционал работы банка
@@ -27,9 +25,9 @@ public class BankService {
      * @param user - новый пользователь
      */
     public void addUser(User user) {
-        this.users = Stream.of(this.users).
-                filter(e -> e.isEmpty()).
-                collect(Collectors.toMap(e -> user, e -> new ArrayList<>()));
+        if (!this.users.containsKey(user)) {
+            this.users.put(user, new ArrayList<>());
+        }
     }
 
     /**
