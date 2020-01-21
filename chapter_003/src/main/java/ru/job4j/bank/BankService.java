@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * Класс реализует функционал работы банка
@@ -41,10 +40,12 @@ public class BankService {
      */
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        Stream.of(this.users).
-                flatMap(e -> Stream.of(e.get(user))).
-                filter(e -> !e.contains(account)).
-                forEach(e -> e.add(account));
+        if (user != null) {
+            List<Account> accounts = this.users.get(user);
+            if (!accounts.contains(account)) {
+                this.users.get(user).add(account);
+            }
+        }
     }
 
     /**
@@ -54,10 +55,11 @@ public class BankService {
      * @return - пользователь
      */
     public User findByPassport(String passport) {
-        User user = this.users.keySet().stream().
-                filter(e -> e.getPassport().equals(passport)).
-                findFirst().get();
-        return user;
+        return this.users.keySet()
+                .stream()
+                .filter(x -> x.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -69,12 +71,10 @@ public class BankService {
      */
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
-        Account account = Stream.of(this.users).
-                flatMap(e -> Stream.of(e.get(user)).
-                        flatMap(i -> i.stream())).
-                filter(i -> i.getRequisite().equals(requisite)).
-                findFirst().get();
-        return account;
+        return this.users.get(user).stream()
+                .filter(x -> x.getRequisite().equals(requisite))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
