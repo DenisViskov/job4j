@@ -26,8 +26,8 @@ public class PhoneDictionary {
      * @return Список подощедщих пользователей.
      */
     public ArrayList<Person> find(String key) {
-        ArrayList<Person> result = new ArrayList<>();
-        for (int i = 0; i < this.persons.size(); i++) {
+        var result = new ArrayList<Person>();
+        for (var i = 0; i < this.persons.size(); i++) {
             boolean condition = this.persons.get(i).getName().contains(key)
                     || this.persons.get(i).getSurname().contains(key)
                     || this.persons.get(i).getPhone().contains(key)
