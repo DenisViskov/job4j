@@ -1,6 +1,6 @@
 package ru.job4j.collection;
 
-import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Класс демонстрирующий работу HashSet
@@ -11,11 +11,10 @@ import java.util.HashSet;
  */
 public class UsageHashSet {
     public static void main(String[] args) {
-        HashSet<String> autos = new HashSet<String>();
-        autos.add("Lada");
-        autos.add("BMV");
-        autos.add("Volvo");
-        autos.add("Toyouta");
+        Set<String> autos = Set.of("Lada",
+                "BMV",
+                "Volvo",
+                "Toyouta");
         for (String auto : autos) {
             System.out.println(auto);
         }
