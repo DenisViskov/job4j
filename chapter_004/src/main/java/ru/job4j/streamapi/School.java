@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class realizes function working of school
@@ -40,5 +41,20 @@ public class School {
                 collect(Collectors.toMap(x -> x.lastName,
                         x -> x));
         return result;
+    }
+
+    /**
+     * Method returns students who has score greater than that bound
+     *
+     * @param students - students
+     * @param bound    - bound
+     * @return - List of students
+     */
+    List<Student> levelOf(List<Student> students, int bound) {
+        return students.stream()
+                .flatMap(Stream::ofNullable)
+                .sorted()
+                .takeWhile(i -> i.score > bound)
+                .collect(Collectors.toList());
     }
 }

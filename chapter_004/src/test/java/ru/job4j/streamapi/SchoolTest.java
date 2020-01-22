@@ -54,4 +54,15 @@ public class SchoolTest {
         Map<String, Student> out = new School().listToMap(input);
         Assert.assertEquals(expect, out);
     }
+
+    @Test
+    public void levelOfTest() {
+        Student first = new Student(55);
+        Student second = new Student(67);
+        Student four = new Student(45);
+        List<Student> input = Arrays.asList(first, second, null, four);
+        List<Student> expect = List.of(first, second);
+        List<Student> out = new School().levelOf(input, 50);
+        Assert.assertEquals(expect, out);
+    }
 }

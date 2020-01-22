@@ -7,7 +7,7 @@ package ru.job4j.streamapi;
  * @version 1.0
  * @since 18.01.2020
  */
-public class Student {
+public class Student implements Comparable<Student> {
     /**
      * Scores
      */
@@ -29,5 +29,10 @@ public class Student {
     @Override
     public String toString() {
         return String.valueOf(this.score);
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return Integer.compare(this.score, o.score);
     }
 }
