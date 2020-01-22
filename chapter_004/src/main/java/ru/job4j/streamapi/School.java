@@ -44,7 +44,7 @@ public class School {
     }
 
     /**
-     * Method returns students who has score greater than that bound
+     * Method returns  students who has score greater than that bound
      *
      * @param students - students
      * @param bound    - bound

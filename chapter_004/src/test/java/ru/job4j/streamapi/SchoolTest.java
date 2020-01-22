@@ -61,7 +61,7 @@ public class SchoolTest {
         Student second = new Student(67);
         Student four = new Student(45);
         List<Student> input = Arrays.asList(first, second, null, four);
-        List<Student> expect = List.of(first, second);
+        List<Student> expect = List.of(second, first);
         List<Student> out = new School().levelOf(input, 50);
         Assert.assertEquals(expect, out);
     }
