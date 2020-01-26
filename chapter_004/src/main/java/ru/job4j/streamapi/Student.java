@@ -1,5 +1,7 @@
 package ru.job4j.streamapi;
 
+import java.util.Set;
+
 /**
  * Class realizes model of data Students
  *
@@ -18,6 +20,21 @@ public class Student implements Comparable<Student> {
      */
     String lastName;
 
+    /**
+     * Name
+     */
+    private String name;
+
+    /**
+     * Sections
+     */
+    private Set<String> units;
+
+    public Student(String name, Set<String> units) {
+        this.name = name;
+        this.units = units;
+    }
+
     public Student(int score) {
         this.score = score;
     }
@@ -34,5 +51,13 @@ public class Student implements Comparable<Student> {
     @Override
     public int compareTo(Student o) {
         return Integer.compare(o.score, this.score);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<String> getUnits() {
+        return units;
     }
 }
