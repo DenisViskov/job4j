@@ -25,13 +25,14 @@ public class Group {
      */
     public static Map<String, Set<String>> sections(List<Student> students) {
         Map<String, Set<String>> result = students.stream()
-                .flatMap(e -> Stream.of(new Holder(e.getName(), e.getUnits().iterator().next())))
+                .flatMap(e -> Stream.of(new Holder(e.getName(), e.getUnits().toString())))
                 .collect(Collectors.groupingBy(t -> t.key,
-                        Collector.of(HashSet::new, (set, el) -> set.add(el.value), (list1, list2) -> {
-                            list1.addAll(list2);
-                            return list1;
-                        })));
-
+                        Collector.of(HashSet::new,
+                                (set, el) -> set.add(el.value),
+                                (left, right) -> {
+                                    left.addAll(right);
+                                    return left;
+                                })));
         return result;
     }
 }

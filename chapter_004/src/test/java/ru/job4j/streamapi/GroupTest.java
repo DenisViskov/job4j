@@ -30,6 +30,6 @@ public class GroupTest {
                         "Baseball",
                         "Kung-Fu"));
         Map<String, Set<String>> out = Group.sections(input);
-        Assert.assertEquals(expect, out);
+        Assert.assertEquals(expect.toString(), out.toString());
     }
 }
