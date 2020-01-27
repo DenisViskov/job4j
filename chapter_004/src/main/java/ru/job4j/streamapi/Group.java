@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Class has realize grouping by interest of students
@@ -25,7 +24,7 @@ public class Group {
      */
     public static Map<String, Set<String>> sections(List<Student> students) {
         Map<String, Set<String>> result = students.stream()
-                .flatMap(e -> Stream.of(new Holder(e.getName(), e.getUnits().toString())))
+                .flatMap(e -> e.getUnits().stream().map(u -> new Holder(u,e.getName())))
                 .collect(Collectors.groupingBy(t -> t.key,
                         Collector.of(HashSet::new,
                                 (set, el) -> set.add(el.value),
