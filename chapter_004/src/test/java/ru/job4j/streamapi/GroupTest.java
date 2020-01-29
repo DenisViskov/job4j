@@ -1,6 +1,7 @@
 package ru.job4j.streamapi;
 
 
+import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,23 +14,15 @@ public class GroupTest {
     @Test
     public void groupTest() {
         Student first = new Student("Vasya",
-                Set.of("Football",
-                        "Basketball",
-                        "Music"));
+                Set.of("Football"));
         Student second = new Student("Alex",
-                Set.of("Jog",
-                        "Baseball",
-                        "Kung-Fu"));
+                Set.of("Jog"));
         List<Student> input = List.of(first, second);
-        Map<String, Set<String>> expect = Map.of("Vasya",
-                Set.of("Football",
-                        "Basketball",
-                        "Music"),
-                "Alex",
-                Set.of("Jog",
-                        "Baseball",
-                        "Kung-Fu"));
+        Map<String, Set<String>> expect = Map.of("Jog",
+                Set.of("Alex"),
+                "Football",
+                Set.of("Vasya"));
         Map<String, Set<String>> out = Group.sections(input);
-        Assert.assertEquals(expect.toString(), out.toString());
+        Assert.assertThat(expect, Is.is(out));
     }
 }
