@@ -47,9 +47,9 @@ public class MatrixArrayIterator {
             @Override
             public Object next() {
                 int result = work[indexFirst][indexSecond++];
-                if (indexSecond == work[indexFirst].length && indexFirst != work.length) {
+                if (indexSecond == work[indexFirst].length) {
                     indexSecond = 0;
-                    indexFirst++;
+                    indexFirst = indexFirst != work.length - 1 ? ++indexFirst : indexFirst;
                 }
                 return result;
             }

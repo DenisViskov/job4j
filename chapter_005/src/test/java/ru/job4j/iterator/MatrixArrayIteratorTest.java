@@ -59,16 +59,6 @@ public class MatrixArrayIteratorTest {
 
     @Test
     public void hasNextNextSequentialInvocation() {
-        /*assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(1));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(3));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(4));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(7));
-        assertThat(it.hasNext(), is(false));*/
-
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
         assertThat(it.hasNext(), is(true));
