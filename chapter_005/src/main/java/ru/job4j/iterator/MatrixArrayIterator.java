@@ -39,9 +39,13 @@ public class MatrixArrayIterator {
         return new Iterator() {
             @Override
             public boolean hasNext() {
-                return indexSecond < work[indexFirst].length
-                        && work[indexFirst].length != 1
-                        || indexFirst < work.length ? true : false;
+                try {
+                    return indexSecond < work[indexFirst].length
+                            && work[indexFirst].length != 1
+                            || indexFirst < work.length ? true : false;
+                } catch (IndexOutOfBoundsException e) {
+                    return indexFirst < work.length ? true : false;
+                }
             }
 
             @Override
@@ -49,7 +53,7 @@ public class MatrixArrayIterator {
                 int result = work[indexFirst][indexSecond++];
                 if (indexSecond == work[indexFirst].length) {
                     indexSecond = 0;
-                    indexFirst = indexFirst != work.length - 1 ? ++indexFirst : indexFirst;
+                    indexFirst++;
                 }
                 return result;
             }
