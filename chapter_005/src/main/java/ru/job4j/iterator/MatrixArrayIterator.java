@@ -39,13 +39,7 @@ public class MatrixArrayIterator {
         return new Iterator() {
             @Override
             public boolean hasNext() {
-                try {
-                    return indexSecond < work[indexFirst].length
-                            && work[indexFirst].length != 1
-                            || indexFirst < work.length ? true : false;
-                } catch (IndexOutOfBoundsException e) {
-                    return indexFirst < work.length ? true : false;
-                }
+                return indexFirst < work.length || indexSecondLessThanLength() ? true : false;
             }
 
             @Override
@@ -56,6 +50,20 @@ public class MatrixArrayIterator {
                     indexFirst++;
                 }
                 return result;
+            }
+
+            /**
+             * Method has realize chacking of indexSecond less than that lenght
+             *
+             * @return - true or false
+             */
+            private boolean indexSecondLessThanLength() {
+                if (indexFirst < work.length) {
+                    return indexSecond < work[indexFirst].length
+                            && work[indexFirst].length != 1;
+                } else {
+                    return false;
+                }
             }
         };
     }
