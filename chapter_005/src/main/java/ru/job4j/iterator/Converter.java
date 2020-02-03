@@ -20,13 +20,18 @@ public class Converter {
     public Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return new Iterator<Integer>() {
             Iterator<Integer> current = nextIncludedIterator();
+            boolean currentIsNotEmpty = current.hasNext();
 
             @Override
             public boolean hasNext() {
-                if (it.hasNext()) {
-                    return true;
+                if (currentIsNotEmpty) {
+                    if (it.hasNext()) {
+                        return true;
+                    } else {
+                        return current.hasNext();
+                    }
                 } else {
-                    return current.hasNext();
+                    return false;
                 }
             }
 
