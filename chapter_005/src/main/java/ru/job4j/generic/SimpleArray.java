@@ -1,6 +1,5 @@
 package ru.job4j.generic;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -51,5 +50,10 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void remove(int index) {
 
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
