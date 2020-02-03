@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * @version 1.0
  * @since 31.01.2020
  */
-public class EvenNumbersIterator {
+public class EvenNumbersIterator implements Iterable {
     /**
      * Numbers
      */
@@ -25,12 +25,8 @@ public class EvenNumbersIterator {
         this.numbers = numbers;
     }
 
-    /**
-     * Method returns new Iterator wich has realize chack on even
-     *
-     * @return - new Iterator of even
-     */
-    public Iterator evenIterator() {
+    @Override
+    public Iterator iterator() {
         return new Iterator<Integer>() {
             @Override
             public boolean hasNext() {
@@ -62,7 +58,7 @@ public class EvenNumbersIterator {
              * @return - true or false
              */
             private boolean isEven(int number) {
-                return number % 2 == 0 ? true : false;
+                return number % 2 == 0;
             }
         };
     }
