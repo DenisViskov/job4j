@@ -30,14 +30,15 @@ public class EvenNumbersIterator implements Iterable {
         return new Iterator<Integer>() {
             @Override
             public boolean hasNext() {
+                boolean result = false;
                 while (index < numbers.length) {
                     if (isEven(numbers[index])) {
-                        return true;
-                    } else {
-                        index++;
+                        result = true;
+                        break;
                     }
+                    index++;
                 }
-                return false;
+                return result;
             }
 
             @Override
