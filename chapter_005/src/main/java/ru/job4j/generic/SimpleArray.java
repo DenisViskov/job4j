@@ -30,7 +30,11 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param model - T element
      */
     public void add(T model) {
-        this.array[index++] = model;
+        if (index < this.array.length) {
+            this.array[index++] = model;
+        } else {
+            throw new IndexOutOfBoundsException("There is no space left in the array");
+        }
     }
 
     /**
@@ -49,11 +53,31 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index - index
      */
     public void remove(int index) {
+        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
+    }
 
+    /**
+     * Method returns T element in array on index
+     *
+     * @param index - index
+     * @return - T
+     */
+    public T get(int index) {
+        return (T) this.array[index];
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return this.hasNext();
+            }
+
+            @Override
+            public T next() {
+                return this.next();
+            }
+        };
     }
 }
