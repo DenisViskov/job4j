@@ -24,15 +24,11 @@ public class Converter {
 
             @Override
             public boolean hasNext() {
-                if (currentIsNotEmpty) {
-                    if (it.hasNext()) {
-                        return true;
-                    } else {
-                        return current.hasNext();
-                    }
-                } else {
-                    return false;
+                while (!currentIsNotEmpty && it.hasNext()) {
+                    current = nextIncludedIterator();
+                    currentIsNotEmpty = current.hasNext();
                 }
+                return it.hasNext() ? true : current.hasNext();
             }
 
             @Override
