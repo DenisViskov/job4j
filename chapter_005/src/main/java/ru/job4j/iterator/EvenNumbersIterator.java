@@ -43,17 +43,14 @@ public class EvenNumbersIterator implements Iterable {
 
             @Override
             public Integer next() {
-                while (!hasNext()) {
-                    index++;
-                    if (index > numbers.length) {
-                        throw new NoSuchElementException();
-                    }
+                if (hasNext()) {
+                    return numbers[index++];
                 }
-                return numbers[index++];
+                throw new NoSuchElementException();
             }
 
             /**
-             * Method is chacking of even numbers
+             * Method is checking of even numbers
              *
              * @param number - number
              * @return - true or false
