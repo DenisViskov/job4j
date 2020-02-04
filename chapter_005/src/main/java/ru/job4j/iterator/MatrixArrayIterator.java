@@ -36,6 +36,9 @@ public class MatrixArrayIterator implements Iterator {
 
     @Override
     public Object next() {
+        while (values[indexFirst].length == 0) {
+            indexFirst++;
+        }
         int result = values[indexFirst][indexSecond++];
         if (indexSecond == values[indexFirst].length) {
             indexSecond = 0;
@@ -45,7 +48,7 @@ public class MatrixArrayIterator implements Iterator {
     }
 
     /**
-     * Method has realize chacking of indexSecond less than that lenght
+     * Method has realize checking of indexSecond less than that lenght
      *
      * @return - true or false
      */

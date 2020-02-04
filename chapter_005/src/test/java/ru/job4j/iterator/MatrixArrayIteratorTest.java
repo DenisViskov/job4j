@@ -51,6 +51,6 @@ public class MatrixArrayIteratorTest {
     @Test
     public void test() {
         it = new MatrixArrayIterator(new int[][]{{}, {}, {7}});
-        assertThat(it.next(),is(7));
+        assertThat(it.next(), is(7));
     }
 }
