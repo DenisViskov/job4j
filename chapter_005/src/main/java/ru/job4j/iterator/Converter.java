@@ -35,9 +35,8 @@ public class Converter {
             public Integer next() {
                 if (current.hasNext()) {
                     return current.next();
-                } else {
-                    current = nextIncludedIterator();
                 }
+                current = nextIncludedIterator();
                 return current.next();
             }
 
@@ -49,9 +48,8 @@ public class Converter {
             private Iterator<Integer> nextIncludedIterator() {
                 if (it.hasNext()) {
                     return it.next();
-                } else {
-                    throw new NoSuchElementException();
                 }
+                throw new NoSuchElementException();
             }
         };
     }
