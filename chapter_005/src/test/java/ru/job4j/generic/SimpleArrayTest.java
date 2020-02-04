@@ -31,9 +31,33 @@ public class SimpleArrayTest {
 
     @Test
     public void get() {
+        strings.array = List.of("1", "2", "3", "4", "5").toArray();
+        Assert.assertThat(strings.get(2), Is.is("3"));
     }
 
     @Test
-    public void iterator() {
+    public void iteratorNext() {
+        strings.array = List.of("1", "2", "3", "4", "5").toArray();
+        Assert.assertThat(strings.iterator().next(), Is.is("1"));
+        Assert.assertThat(strings.iterator().next(), Is.is("2"));
+        Assert.assertThat(strings.iterator().next(), Is.is("3"));
+        Assert.assertThat(strings.iterator().next(), Is.is("4"));
+        Assert.assertThat(strings.iterator().next(), Is.is("5"));
+    }
+
+    @Test
+    public void iteratorHasNext() {
+        strings.array = List.of("1", "2", "3", "4", "5").toArray();
+        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
+        Assert.assertThat(strings.iterator().next(), Is.is("1"));
+        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
+        Assert.assertThat(strings.iterator().next(), Is.is("2"));
+        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
+        Assert.assertThat(strings.iterator().next(), Is.is("3"));
+        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
+        Assert.assertThat(strings.iterator().next(), Is.is("4"));
+        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
+        Assert.assertThat(strings.iterator().next(), Is.is("5"));
+        Assert.assertThat(strings.iterator().hasNext(), Is.is(false));
     }
 }
