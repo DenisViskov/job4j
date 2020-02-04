@@ -47,4 +47,10 @@ public class MatrixArrayIteratorTest {
         assertThat(it.next(), is(7));
         assertThat(it.hasNext(), is(false));
     }
+
+    @Test
+    public void test() {
+        it = new MatrixArrayIterator(new int[][]{{}, {}, {7}});
+        assertThat(it.next(),is(7));
+    }
 }
