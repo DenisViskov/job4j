@@ -2,8 +2,6 @@ package ru.job4j.generic;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Class has realize universal wrapper for array
@@ -56,9 +54,8 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index - index
      */
     public void remove(int index) {
-        this.array = Stream.of(this.array)
-                .filter(i -> !i.equals(this.array[index]))
-                .collect(Collectors.toList()).toArray();
+        int lenght = this.array.length - (index + 1);
+        System.arraycopy(this.array, index + 1, this.array, index, lenght);
     }
 
     /**
@@ -76,7 +73,7 @@ public class SimpleArray<T> implements Iterable<T> {
         return new Iterator<T>() {
             @Override
             public boolean hasNext() {
-                return index < array.length ? true : false;
+                return index < array.length && array[index] != null ? true : false;
             }
 
             @Override
