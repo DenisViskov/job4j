@@ -27,6 +27,12 @@ public class SimpleArrayTest {
         strings.array = List.of("1", "2", "3", "4", "5").toArray();
         strings.remove(0);
         Assert.assertThat(strings.array, Is.is(List.of("2", "3", "4", "5").toArray()));
+        strings.remove(1);
+        Assert.assertThat(strings.array, Is.is(List.of("2", "4", "5").toArray()));
+        strings.remove(2);
+        Assert.assertThat(strings.array, Is.is(List.of("2", "4").toArray()));
+        strings.remove(1);
+        Assert.assertThat(strings.array, Is.is(List.of("2").toArray()));
     }
 
     @Test

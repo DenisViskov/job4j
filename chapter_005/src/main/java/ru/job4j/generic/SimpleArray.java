@@ -1,5 +1,6 @@
 package ru.job4j.generic;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -54,8 +55,8 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index - index
      */
     public void remove(int index) {
-        int lenght = this.array.length - (index + 1);
-        System.arraycopy(this.array, index + 1, this.array, index, lenght);
+        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
+        this.array = Arrays.copyOf(this.array, this.array.length - 1);
     }
 
     /**
