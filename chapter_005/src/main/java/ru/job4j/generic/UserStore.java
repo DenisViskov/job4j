@@ -7,8 +7,9 @@ package ru.job4j.generic;
  * @version 1.0
  * @since 06.02.2020
  */
-public class UserStore extends AbstractStore{
-    public UserStore(SimpleArray<Base> container) {
+public class UserStore extends AbstractStore {
+
+    public UserStore(SimpleArray<User> container) {
         super(container);
     }
 }

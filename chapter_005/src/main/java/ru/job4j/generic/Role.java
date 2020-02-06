@@ -1,7 +1,7 @@
 package ru.job4j.generic;
 
 /**
- * Class has realize model of data role
+ * Class has realize model  of data role
  *
  * @author Денис Висков
  * @version 1.0

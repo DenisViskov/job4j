@@ -1,7 +1,7 @@
 package ru.job4j.generic;
 
 /**
- * Class is an abstract and realizes model of data base
+ * Class is an abstract  and realizes model of data base
  *
  * @author Денис Висков
  * @version 1.0

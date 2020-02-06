@@ -1,7 +1,7 @@
 package ru.job4j.generic;
 
 /**
- * Interface containers store
+ * Interface  containers store
  *
  * @author Денис Висков
  * @version 1.0

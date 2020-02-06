@@ -15,7 +15,7 @@ public class AbstractStore implements Store {
      */
     SimpleArray<Base> container;
 
-    public AbstractStore(SimpleArray<Base> container) {
+    public AbstractStore(SimpleArray container) {
         this.container = container;
     }
 

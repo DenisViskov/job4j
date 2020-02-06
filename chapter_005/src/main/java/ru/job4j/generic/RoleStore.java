@@ -9,7 +9,7 @@ package ru.job4j.generic;
  */
 public class RoleStore extends AbstractStore {
 
-    public RoleStore(SimpleArray<Base> container) {
+    public RoleStore(SimpleArray<Role> container) {
         super(container);
     }
 }
