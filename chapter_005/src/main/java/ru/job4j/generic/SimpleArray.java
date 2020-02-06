@@ -69,6 +69,21 @@ public class SimpleArray<T> implements Iterable<T> {
         return (T) this.array[index];
     }
 
+    /**
+     * Method returns index of element in array
+     *
+     * @param element - element
+     * @return - index
+     */
+    public int findIndexOnObject(T element) {
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i].equals(element)) {
+                return i;
+            }
+        }
+        throw new NoSuchElementException("Element was not found");
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
