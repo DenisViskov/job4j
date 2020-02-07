@@ -55,8 +55,14 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index - index
      */
     public void remove(int index) {
-        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
-        this.array = Arrays.copyOf(this.array, this.array.length - 1);
+        if (index < this.array.length) {
+            this.array[index] = null;
+            System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
+            this.array = Arrays.copyOf(this.array, this.array.length - 1);
+            this.index -= 1;
+        } else {
+            throw new IndexOutOfBoundsException("index is located behind the side of range");
+        }
     }
 
     /**
