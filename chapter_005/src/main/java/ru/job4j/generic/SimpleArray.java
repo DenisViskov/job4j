@@ -15,12 +15,12 @@ public class SimpleArray<T> implements Iterable<T> {
     /**
      * Array
      */
-    Object[] array;
+    private Object[] array;
 
     /**
      * Index
      */
-    int index = 0;
+    private int index = 0;
 
     public SimpleArray(int size) {
         this.array = new Object[size];
@@ -55,7 +55,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index - index
      */
     public void remove(int index) {
-        if (index < this.array.length) {
+        if (index < this.array.length && index >= 0) {
             this.array[index] = null;
             System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
             this.array = Arrays.copyOf(this.array, this.array.length - 1);
@@ -107,5 +107,13 @@ public class SimpleArray<T> implements Iterable<T> {
                 }
             }
         };
+    }
+
+    public Object[] getArray() {
+        return array;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }
