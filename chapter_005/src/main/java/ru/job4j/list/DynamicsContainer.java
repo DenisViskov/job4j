@@ -60,10 +60,12 @@ public class DynamicsContainer<E> implements Iterable<E> {
     public Iterator<E> iterator() {
         countOfChange = 0;
         return new Iterator<E>() {
+            int count = 0;
+
             @Override
             public boolean hasNext() {
                 if (countOfChange == 0) {
-                    return index < container.length ? true : false;
+                    return count < container.length ? true : false;
                 }
                 throw new ConcurrentModificationException("Structure of data base was been changed");
             }
@@ -71,14 +73,10 @@ public class DynamicsContainer<E> implements Iterable<E> {
             @Override
             public E next() {
                 if (hasNext()) {
-                    return (E) container[index++];
+                    return (E) container[count++];
                 }
                 throw new NoSuchElementException();
             }
         };
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 }

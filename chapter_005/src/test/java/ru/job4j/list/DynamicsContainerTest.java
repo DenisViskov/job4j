@@ -42,7 +42,6 @@ public class DynamicsContainerTest {
 
     @Test
     public void iterator() {
-        container.setIndex(0);
         Iterator<Integer> it = container.iterator();
         Assert.assertThat(it.hasNext(), Is.is(true));
         Assert.assertThat(it.next(), Is.is(1));
@@ -63,7 +62,7 @@ public class DynamicsContainerTest {
         Assert.assertThat(it.hasNext(), Is.is(true));
         Assert.assertThat(it.next(), Is.is(9));
         Assert.assertThat(it.hasNext(), Is.is(true));
-        container.add(10);
+        it.next();
         Assert.assertThat(it.hasNext(), Is.is(false));
     }
 
