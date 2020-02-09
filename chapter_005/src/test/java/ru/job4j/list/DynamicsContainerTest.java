@@ -62,13 +62,15 @@ public class DynamicsContainerTest {
         Assert.assertThat(it.next(), Is.is(8));
         Assert.assertThat(it.hasNext(), Is.is(true));
         Assert.assertThat(it.next(), Is.is(9));
+        Assert.assertThat(it.hasNext(), Is.is(true));
+        container.add(10);
         Assert.assertThat(it.hasNext(), Is.is(false));
     }
 
     @Test
     public void whenIteratorThrowExeption() {
         Iterator<Integer> it = container.iterator();
-        Assert.assertThat(it.hasNext(), Is.is(false));
+        Assert.assertThat(it.hasNext(), Is.is(true));
         container.add(10);
         container.add(11);
         boolean flag = false;

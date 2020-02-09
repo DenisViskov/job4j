@@ -50,7 +50,7 @@ public class DynamicsContainer<E> implements Iterable<E> {
     }
 
     public E get(int index) {
-        if (index < this.container.length && index >= 0) {
+        if (index <= this.index && index >= 0) {
             return (E) this.container[index];
         }
         throw new IndexOutOfBoundsException("Index is located behind the side of date");
@@ -63,8 +63,7 @@ public class DynamicsContainer<E> implements Iterable<E> {
             @Override
             public boolean hasNext() {
                 if (countOfChange == 0) {
-                    return index < container.length && container[index] != null
-                            ? true : false;
+                    return index < container.length ? true : false;
                 }
                 throw new ConcurrentModificationException("Structure of data base was been changed");
             }
