@@ -63,8 +63,8 @@ public class DynamicsContainer<E> implements Iterable<E> {
             @Override
             public boolean hasNext() {
                 if (countOfChange == 0) {
-                    return index < container.length && container[index] != null ?
-                            true : false;
+                    return index < container.length && container[index] != null
+                            ? true : false;
                 }
                 throw new ConcurrentModificationException("Structure of data base was been changed");
             }

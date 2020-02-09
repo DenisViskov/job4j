@@ -41,7 +41,7 @@ public class DynamicsContainerTest {
     }
 
     @Test
-    public void Iterator() {
+    public void iterator() {
         container.setIndex(0);
         Iterator<Integer> it = container.iterator();
         Assert.assertThat(it.hasNext(), Is.is(true));
