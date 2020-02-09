@@ -46,7 +46,9 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param model - model
      */
     public void set(int index, T model) {
-        this.array[index] = model;
+        if (index < this.index) {
+            this.array[index] = model;
+        }
     }
 
     /**
@@ -55,7 +57,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index - index
      */
     public void remove(int index) {
-        if (index < this.array.length && index >= 0) {
+        if (index < this.index && index >= 0) {
             this.array[index] = null;
             System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
             this.array = Arrays.copyOf(this.array, this.array.length - 1);
