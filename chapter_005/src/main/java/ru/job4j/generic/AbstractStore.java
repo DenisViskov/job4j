@@ -1,7 +1,5 @@
 package ru.job4j.generic;
 
-import java.util.NoSuchElementException;
-
 /**
  * Class has realize interface store
  *
@@ -34,43 +32,51 @@ public class AbstractStore implements Store {
      *
      * @param id    - id of element
      * @param model - model
-     * @return - true or throw NoSuchElementExeption
+     * @return - true or false
      */
     @Override
     public boolean replace(String id, Base model) {
         Base element = findById(id);
-        int index = this.container.findIndexOnObject(element);
-        this.container.set(index, model);
-        return true;
+        int index = element != null ? this.container.findIndexOnObject(element) : -1;
+        if (index != -1) {
+            this.container.set(index, model);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Method has realize delete of element in base on the gave ID
      *
      * @param id - id
-     * @return - true or or throw NoSuchElementExeption
+     * @return - true or false
      */
     @Override
     public boolean delete(String id) {
         Base element = findById(id);
-        int index = this.container.findIndexOnObject(element);
-        this.container.remove(index);
-        return true;
+        int index = element != null ? this.container.findIndexOnObject(element) : -1;
+        if (index != -1) {
+            this.container.remove(index);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Method has realize looking for element in base on the gave ID
      *
      * @param id - id
-     * @return - found element
+     * @return - found element or null
      */
     @Override
     public Base findById(String id) {
+        Base result = null;
         for (Base element : this.container) {
             if (element.getId().equals(id)) {
-                return element;
+                result = element;
+                return result;
             }
         }
-        throw new NoSuchElementException("Element is not found");
+        return result;
     }
 }
