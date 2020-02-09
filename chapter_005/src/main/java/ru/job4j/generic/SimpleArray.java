@@ -84,7 +84,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @return - index or else "-1" if element was not found
      */
     public int findIndexOnObject(T element) {
-        for (int i = 0; i < this.array.length; i++) {
+        for (int i = 0; i < this.index; i++) {
             if (this.array[i].equals(element)) {
                 return i;
             }
