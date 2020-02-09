@@ -78,4 +78,8 @@ public class DynamicsContainer<E> implements Iterable<E> {
             }
         };
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 }
