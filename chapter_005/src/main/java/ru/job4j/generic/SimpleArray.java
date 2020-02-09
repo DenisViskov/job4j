@@ -95,15 +95,17 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+            int count = 0;
+
             @Override
             public boolean hasNext() {
-                return index < array.length && array[index] != null ? true : false;
+                return count < array.length && array[count] != null ? true : false;
             }
 
             @Override
             public T next() {
                 if (hasNext()) {
-                    return (T) array[index++];
+                    return (T) array[count++];
                 } else {
                     throw new NoSuchElementException();
                 }
@@ -113,9 +115,5 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public Object[] getArray() {
         return array;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 }

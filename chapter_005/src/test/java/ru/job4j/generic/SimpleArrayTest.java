@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class SimpleArrayTest {
@@ -51,27 +52,27 @@ public class SimpleArrayTest {
 
     @Test
     public void iteratorNext() {
-        strings.setIndex(0);
-        Assert.assertThat(strings.iterator().next(), Is.is("1"));
-        Assert.assertThat(strings.iterator().next(), Is.is("2"));
-        Assert.assertThat(strings.iterator().next(), Is.is("3"));
-        Assert.assertThat(strings.iterator().next(), Is.is("4"));
-        Assert.assertThat(strings.iterator().next(), Is.is("5"));
+        Iterator<String> it = strings.iterator();
+        Assert.assertThat(it.next(), Is.is("1"));
+        Assert.assertThat(it.next(), Is.is("2"));
+        Assert.assertThat(it.next(), Is.is("3"));
+        Assert.assertThat(it.next(), Is.is("4"));
+        Assert.assertThat(it.next(), Is.is("5"));
     }
 
     @Test
     public void iteratorHasNext() {
-        strings.setIndex(0);
-        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
-        Assert.assertThat(strings.iterator().next(), Is.is("1"));
-        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
-        Assert.assertThat(strings.iterator().next(), Is.is("2"));
-        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
-        Assert.assertThat(strings.iterator().next(), Is.is("3"));
-        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
-        Assert.assertThat(strings.iterator().next(), Is.is("4"));
-        Assert.assertThat(strings.iterator().hasNext(), Is.is(true));
-        Assert.assertThat(strings.iterator().next(), Is.is("5"));
-        Assert.assertThat(strings.iterator().hasNext(), Is.is(false));
+        Iterator<String> it = strings.iterator();
+        Assert.assertThat(it.hasNext(), Is.is(true));
+        Assert.assertThat(it.next(), Is.is("1"));
+        Assert.assertThat(it.hasNext(), Is.is(true));
+        Assert.assertThat(it.next(), Is.is("2"));
+        Assert.assertThat(it.hasNext(), Is.is(true));
+        Assert.assertThat(it.next(), Is.is("3"));
+        Assert.assertThat(it.hasNext(), Is.is(true));
+        Assert.assertThat(it.next(), Is.is("4"));
+        Assert.assertThat(it.hasNext(), Is.is(true));
+        Assert.assertThat(it.next(), Is.is("5"));
+        Assert.assertThat(it.hasNext(), Is.is(false));
     }
 }
