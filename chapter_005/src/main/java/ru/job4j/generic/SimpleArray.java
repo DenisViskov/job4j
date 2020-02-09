@@ -79,7 +79,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * Method returns index of element in array
      *
      * @param element - element
-     * @return - index
+     * @return - index or else "-1" if element was not found
      */
     public int findIndexOnObject(T element) {
         for (int i = 0; i < this.array.length; i++) {
@@ -87,7 +87,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 return i;
             }
         }
-        throw new NoSuchElementException("Element was not found");
+        return -1;
     }
 
     @Override
