@@ -30,51 +30,56 @@ public class SimpleArray<T> implements Iterable<T> {
      * Method has realize add element in array
      *
      * @param model - T element
+     * @return - true or throw IndexOutOfBoundsException
      */
-    public void add(T model) {
+    public boolean add(T model) {
         if (index < this.array.length) {
             this.array[index++] = model;
-        } else {
-            throw new IndexOutOfBoundsException("There is no space left in the array");
+            return true;
+        }
+        throw new IndexOutOfBoundsException("There is no space left in the array");
+    }
+
+    /**
+     * Method has realize set model in array on the position
+     *
+     * @param position - position
+     * @param model    - model
+     */
+    public void set(int position, T model) {
+        if (position < this.index && position >= 0) {
+            this.array[position] = model;
         }
     }
 
     /**
-     * Method has realize set model in array on the index
+     * Method has remove element on position and shifts all remaining elements on the one position
      *
-     * @param index - index
-     * @param model - model
+     * @param position - position
+     * @return - true or throw IndexOutOfBoundsException
      */
-    public void set(int index, T model) {
-        if (index < this.index) {
-            this.array[index] = model;
-        }
-    }
-
-    /**
-     * Method has remove element on index and shifts all remaining elements on the one position
-     *
-     * @param index - index
-     */
-    public void remove(int index) {
-        if (index < this.index && index >= 0) {
-            this.array[index] = null;
-            System.arraycopy(this.array, index + 1, this.array, index, this.array.length - (index + 1));
+    public boolean remove(int position) {
+        if (position < this.index && position >= 0) {
+            this.array[position] = null;
+            System.arraycopy(this.array, position + 1, this.array, position, this.array.length - (position + 1));
             this.array = Arrays.copyOf(this.array, this.array.length - 1);
             this.index -= 1;
-        } else {
-            throw new IndexOutOfBoundsException("index is located behind the side of range");
+            return true;
         }
+        throw new IndexOutOfBoundsException("position is located behind the side of range");
     }
 
     /**
-     * Method returns T element in array on index
+     * Method returns T element in array on position
      *
-     * @param index - index
-     * @return - T
+     * @param position - position
+     * @return - T or throw IndexOutOfBoundsException
      */
-    public T get(int index) {
-        return (T) this.array[index];
+    public T get(int position) {
+        if (position < this.index && position >= 0) {
+            return (T) this.array[position];
+        }
+        throw new IndexOutOfBoundsException("position is located behind the side of range");
     }
 
     /**
@@ -106,9 +111,8 @@ public class SimpleArray<T> implements Iterable<T> {
             public T next() {
                 if (hasNext()) {
                     return (T) array[count++];
-                } else {
-                    throw new NoSuchElementException();
                 }
+                throw new NoSuchElementException();
             }
         };
     }
