@@ -1,6 +1,8 @@
 package ru.job4j.list;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class has realize Dynamics Linked Container
@@ -55,18 +57,28 @@ public class DynamicsLinkedContainer<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            int expectedModCount = modCount;
+            Node<E> result = first;
+
             @Override
             public boolean hasNext() {
-                return false;
+                if (expectedModCount == modCount) {
+                    return result != null ? true : false;
+                }
+                throw new ConcurrentModificationException();
             }
 
             @Override
             public E next() {
-                return null;
+                if (hasNext()) {
+                    E data = result.data;
+                    result = result.next;
+                    return data;
+                }
+                throw new NoSuchElementException();
             }
         };
     }
-
 
     /**
      * Class has realize model of data Node
