@@ -8,6 +8,15 @@ package ru.job4j.list;
  * @since 10.02.2020
  */
 public class SimpleQueue<T> {
+    /**
+     * First
+     */
+    private SimpleStack<T> first = new SimpleStack<>();
+
+    /**
+     * Second
+     */
+    private SimpleStack<T> second = new SimpleStack<>();
 
     /**
      * Method returns T element and remove his of queue
@@ -15,7 +24,8 @@ public class SimpleQueue<T> {
      * @return - T
      */
     public T poll() {
-        return null;
+        pushAllElement();
+        return second.poll();
     }
 
     /**
@@ -24,6 +34,22 @@ public class SimpleQueue<T> {
      * @param value - T value
      */
     public void push(T value) {
+        first.push(value);
+    }
 
+    /**
+     * Method has realize pushing all element which includes
+     * in first simpleStack to second SimpleStack
+     */
+    private void pushAllElement() {
+        T result;
+        while (true) {
+            try {
+                result = first.poll();
+            } catch (NullPointerException e) {
+                break;
+            }
+            second.push(result);
+        }
     }
 }
