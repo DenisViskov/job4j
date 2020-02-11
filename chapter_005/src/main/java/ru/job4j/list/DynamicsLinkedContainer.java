@@ -62,20 +62,20 @@ public class DynamicsLinkedContainer<E> implements Iterable<E> {
 
             @Override
             public boolean hasNext() {
-                if (expectedModCount == modCount) {
-                    return result != null ? true : false;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
                 }
-                throw new ConcurrentModificationException();
+                return result != null ? true : false;
             }
 
             @Override
             public E next() {
-                if (hasNext()) {
-                    E data = result.data;
-                    result = result.next;
-                    return data;
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
-                throw new NoSuchElementException();
+                E data = result.data;
+                result = result.next;
+                return data;
             }
         };
     }
