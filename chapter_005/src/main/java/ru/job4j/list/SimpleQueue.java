@@ -19,6 +19,16 @@ public class SimpleQueue<T> {
     private SimpleStack<T> second = new SimpleStack<>();
 
     /**
+     * Size first
+     */
+    private int sizeFirst = 0;
+
+    /**
+     * Size second
+     */
+    private int sizeSecond = 0;
+
+    /**
      * Method returns T element and remove his of queue
      *
      * @return - T
@@ -35,6 +45,7 @@ public class SimpleQueue<T> {
      */
     public void push(T value) {
         first.push(value);
+        this.sizeFirst++;
     }
 
     /**
@@ -42,14 +53,9 @@ public class SimpleQueue<T> {
      * in first simpleStack to second SimpleStack
      */
     private void pushAllElement() {
-        T result;
-        while (true) {
-            try {
-                result = first.poll();
-            } catch (NullPointerException e) {
-                break;
-            }
-            second.push(result);
+        while (this.sizeSecond < this.sizeFirst) {
+            second.push(first.poll());
+            this.sizeSecond++;
         }
     }
 }
