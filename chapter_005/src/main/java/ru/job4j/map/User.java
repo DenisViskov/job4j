@@ -25,9 +25,7 @@ public class User {
      */
     private Calendar birthday;
 
-    public User(String name, int children, Calendar birthday) {
+    public User(String name) {
         this.name = name;
-        this.children = children;
-        this.birthday = birthday;
     }
 }
