@@ -28,4 +28,12 @@ public class NodeTest {
         four.setNext(null);
         assertThat(first.hasCycle(first), is(true));
     }
+
+    @Test
+    public void whenHasCycleReturnsFalseTest() {
+        first.setNext(two);
+        two.setNext(third);
+        third.setNext(four);
+        assertThat(first.hasCycle(first), is(false));
+    }
 }

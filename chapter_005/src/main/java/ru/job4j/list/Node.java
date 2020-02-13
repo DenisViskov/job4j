@@ -19,9 +19,9 @@ public class Node<T> {
     private Node<T> next;
 
     /**
-     * Size of list
+     * Flag for check
      */
-    private int size;
+    private boolean flag = false;
 
     public Node(T value) {
         this.value = value;
@@ -35,18 +35,21 @@ public class Node<T> {
      */
     public boolean hasCycle(Node first) {
         Node check = first;
+        check.flag = true;
         boolean result = false;
-        int count = 0;
-        while (check != null) {
-            check = check.next;
-            count++;
-            result = count > this.size ? true : false;
+        while (check.next != null) {
+            if (!check.next.flag) {
+                check = check.next;
+                check.flag = true;
+            } else {
+                result = true;
+                break;
+            }
         }
         return result;
     }
 
     public void setNext(Node<T> next) {
         this.next = next;
-        size++;
     }
 }
