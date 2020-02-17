@@ -34,19 +34,16 @@ public class Node<T> {
      * @return - true or false in dependency of result
      */
     public boolean hasCycle(Node first) {
-        Node check = first;
-        check.flag = true;
-        boolean result = false;
-        while (check.next != null) {
-            if (!check.next.flag) {
-                check = check.next;
-                check.flag = true;
-            } else {
-                result = true;
-                break;
+        Node turtle = first;
+        Node hare = first;
+        while (hare != null && hare.next != null) {
+            turtle = turtle.next;
+            hare = hare.next.next;
+            if (turtle == hare) {
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
     public void setNext(Node<T> next) {
