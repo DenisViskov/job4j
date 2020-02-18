@@ -5,8 +5,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
 public class UserTest {
 
     @Test
@@ -17,6 +15,6 @@ public class UserTest {
         map.put(first, "String");
         map.put(second, "String");
         System.out.println(map);
+        System.out.println(first.hashCode() + " " + second.hashCode());
     }
-
 }
