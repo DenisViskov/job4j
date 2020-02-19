@@ -89,7 +89,7 @@ public class HashMapTest {
     }
 
     @Test
-    public void IteratorTest() {
+    public void iteratorTest() {
         HashMap<Integer, String> map = new HashMap<>();
         Iterator iterator = map.iterator();
         map.insert(1, "Privet");
