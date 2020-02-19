@@ -1,7 +1,8 @@
 package ru.job4j.map;
 
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 /**
  * Class has realize HashMap
@@ -12,78 +13,74 @@ import java.util.NoSuchElementException;
  */
 public class HashMap<K, V> {
     private Entry[] table;
+    private int index;
 
     public HashMap() {
         this.table = new Entry[16];
+        this.index = 0;
     }
 
     public boolean insert(K key, V value) {
-        Entry element;
-        int hash = key.hashCode();
-        int index = getIndex(hash, this.table.length);
-        if (this.table[index] == null) {
-            element = new Entry(key, value, hash);
-            this.table[index] = element;
+        boolean result = false;
+        if (!this.hasKey(key) && this.index < this.table.length) {
+            this.table[this.index++] = new Entry(key, value);
+            result = true;
+        } else if (this.hasKey(key)) {
+            return result;
         } else {
-            if (this.table[index].hash != hash || !key.equals(this.table[index].key)) {
-                this.table[index].next = new Entry(key, value, hash);
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public V get(K key) {
-        int index = getIndex(key.hashCode(), this.table.length);
-        V result = null;
-        if (this.table[index] == null) {
-            throw new NullPointerException();
-        }
-        Iterator<Entry> iterator = this.table[index].iterator();
-        while (iterator.hasNext()) {
-            Entry element = iterator.next();
-            result = element.key.equals(key) ? (V) element.value : null;
+            this.table = Arrays.copyOf(this.table, this.table.length + 16);
+            this.table[index++] = new Entry(key, value);
+            result = true;
         }
         return result;
     }
 
+    public V get(K key) {
+        if (!this.hasKey(key)) {
+            throw new NoSuchElementException();
+        }
+        return (V) Arrays.stream(this.table)
+                .filter(i -> i.key.equals(key))
+                .map(v -> v.value)
+                .findFirst()
+                .get();
+    }
+
     public boolean delete(K key) {
-        return false;
+        if (!this.hasKey(key)) {
+            return false;
+        }
+        int position = findIndex(key);
+        this.table[position] = null;
+        System.arraycopy(this.table, position + 1, this.table, position, this.table.length - (position + 1));
+        this.table = Arrays.copyOf(this.table, this.table.length - 1);
+        this.index -= 1;
+        return true;
     }
 
-    private int getIndex(int hash, int size) {
-        return hash & (size - 1);
+    private boolean hasKey(K key) {
+        return Arrays.stream(this.table)
+                .filter(j -> j != null)
+                .flatMap(i -> Stream.of(i.key))
+                .anyMatch(k -> k.hashCode() == key.hashCode() ? k.equals(key) : false);
     }
 
-    private static class Entry<K, V> implements Iterable<Entry> {
+    private int findIndex(K key) {
+        if (!this.hasKey(key)) {
+            throw new NoSuchElementException();
+        }
+        return (int) Arrays.stream(this.table)
+                .takeWhile(i -> !i.key.equals(key))
+                .count();
+    }
+
+    private static class Entry<K, V> {
         private K key;
         private V value;
-        private int hash;
-        private Entry next;
 
-        public Entry(K key, V value, int hash) {
+        public Entry(K key, V value) {
             this.key = key;
             this.value = value;
-            this.hash = hash;
-        }
-
-        @Override
-        public Iterator iterator() {
-            return new Iterator() {
-                @Override
-                public boolean hasNext() {
-                    return next != null ? true : false;
-                }
-
-                @Override
-                public Entry next() {
-                    if (!hasNext()) {
-                        throw new NoSuchElementException();
-                    }
-                    return next;
-                }
-            };
         }
     }
 }
