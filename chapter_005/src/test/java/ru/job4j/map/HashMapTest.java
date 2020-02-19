@@ -2,6 +2,7 @@ package ru.job4j.map;
 
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.core.Is.is;
@@ -85,5 +86,24 @@ public class HashMapTest {
         } finally {
             assertThat(result, is(true));
         }
+    }
+
+    @Test
+    public void IteratorTest() {
+        HashMap<Integer, String> map = new HashMap<>();
+        Iterator iterator = map.iterator();
+        map.insert(1, "Privet");
+        map.insert(2, "Poka");
+        map.insert(3, "Good");
+        map.insert(4, "ZZZ");
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(map.get(1)));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(map.get(2)));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(map.get(3)));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(map.get(4)));
+        assertThat(iterator.hasNext(), is(false));
     }
 }
