@@ -1,8 +1,6 @@
 package ru.job4j.tree;
 
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Class has realizes simple tree model of data
@@ -11,7 +9,7 @@ import java.util.Queue;
  * @version 1.0
  * @since 20.02.2020
  */
-public class Tree<E> implements SimpleTree<E> {
+public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     /**
      * Root node
      */
@@ -62,5 +60,25 @@ public class Tree<E> implements SimpleTree<E> {
             data.addAll(el.children);
         }
         return rsl;
+    }
+
+    /**
+     * Method has realizes checking of binary or not our trees
+     *
+     * @return - true or fals in dependency of result
+     */
+    public boolean isBinary() {
+        boolean result = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> element = data.poll();
+            if (element.children.size() > 2) {
+                result = false;
+                break;
+            }
+            data.addAll(element.children);
+        }
+        return result;
     }
 }
