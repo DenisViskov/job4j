@@ -52,8 +52,8 @@ public class HashMap<K, V> implements Iterable<V> {
             this.table[index] = new Entry(key, value);
             this.size++;
         } else {
-            result = this.table[index].key.hashCode() == key.hashCode() ?
-                    this.table[index].key.equals(key) : false;
+            result = this.table[index].key.hashCode() == key.hashCode()
+                    ? this.table[index].key.equals(key) : false;
             if (result) {
                 this.table[index].value = value;
                 this.size++;
