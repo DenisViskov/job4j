@@ -12,32 +12,37 @@ public class HashMapTest {
 
     @Test
     public void insertTest() {
-        HashMap<Integer, String> map = new HashMap<>();
-        boolean out = map.insert(1, "Privet");
+        HashMap<String, String> map = new HashMap<>();
+        boolean out = map.insert("12", "Privet");
         assertThat(out, is(true));
     }
 
     @Test
     public void whenWeHaveBehindTheSideOfEndInsertTest() {
-        HashMap<Integer, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         boolean out;
-        map.insert(1, "Privet");
-        map.insert(2, "Privet");
-        map.insert(3, "Privet");
-        map.insert(4, "Privet");
-        map.insert(5, "Privet");
-        map.insert(6, "Privet");
-        map.insert(7, "Privet");
-        map.insert(8, "Privet");
-        map.insert(9, "Privet");
-        map.insert(10, "Privet");
-        map.insert(11, "Privet");
-        map.insert(12, "Privet");
-        map.insert(13, "Privet");
-        map.insert(14, "Privet");
-        map.insert(15, "Privet");
-        map.insert(16, "Privet");
-        out = map.insert(17, "Privet");
+        map.insert("12", "Privet");
+        map.insert("vasa", "Privet");
+        map.insert("petya", "Privet");
+        map.insert("Fedor", "Privet");
+        map.insert("mem", "Privet");
+        map.insert("123", "Privet");
+        map.insert("Jora", "Privet");
+        map.insert("asfg", "Privet");
+        map.insert("zxcv", "Privet");
+        map.insert("1asdfg2", "Privet");
+        map.insert("1gaf2", "Privet");
+        map.insert("asd", "Privet");
+        map.insert("asfg2", "Privet");
+        map.insert("asfg", "Privet");
+        map.insert("zxcv", "Privet");
+        map.insert("1asdfg2", "Privet");
+        map.insert("1gaf2", "Privet");
+        map.insert("asd", "Privet");
+        map.insert("ass", "Privet");
+        map.insert("gff", "Privet");
+        map.insert("1sdfas2", "Privet");
+        out = map.insert("2", "Privet");
         assertThat(out, is(true));
     }
 

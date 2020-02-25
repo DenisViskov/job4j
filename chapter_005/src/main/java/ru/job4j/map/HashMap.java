@@ -3,7 +3,6 @@ package ru.job4j.map;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.stream.Stream;
 
 /**
  * Class has realize HashMap
@@ -19,13 +18,18 @@ public class HashMap<K, V> implements Iterable<V> {
     private Entry[] table;
 
     /**
-     * Index
+     * Size
      */
-    private int index;
+    private int size;
+
+    /**
+     * Load factor
+     */
+    private final double loadFactor = 0.75;
 
     public HashMap() {
         this.table = new Entry[16];
-        this.index = 0;
+        this.size = 0;
     }
 
     /**
@@ -36,16 +40,23 @@ public class HashMap<K, V> implements Iterable<V> {
      * @return - true or false in dependency of result
      */
     public boolean insert(K key, V value) {
-        boolean result = false;
-        if (!this.hasKey(key) && this.index < this.table.length) {
-            this.table[this.index++] = new Entry(key, value);
-            result = true;
-        } else if (this.hasKey(key)) {
-            return result;
+        boolean result = true;
+        int index = this.indexFor(key.hashCode());
+        if (this.table[index] == null) {
+            this.table[index] = new Entry(key, value);
+            this.size++;
+        } else if (((double) this.size / (double) this.table.length) > this.loadFactor) {
+            this.changeTable();
+            index = this.indexFor(key.hashCode());
+            this.table[index] = new Entry(key, value);
+            this.size++;
         } else {
-            this.table = Arrays.copyOf(this.table, this.table.length + 16);
-            this.table[index++] = new Entry(key, value);
-            result = true;
+            result = this.table[index].key.hashCode() == key.hashCode() ?
+                    this.table[index].key.equals(key) : false;
+            if (result) {
+                this.table[index].value = value;
+                this.size++;
+            }
         }
         return result;
     }
@@ -57,14 +68,11 @@ public class HashMap<K, V> implements Iterable<V> {
      * @return - V
      */
     public V get(K key) {
-        if (!this.hasKey(key)) {
+        int index = this.indexFor(key.hashCode());
+        if (this.table[index] == null) {
             throw new NoSuchElementException();
         }
-        return (V) Arrays.stream(this.table)
-                .filter(i -> i.key.equals(key))
-                .map(v -> v.value)
-                .findFirst()
-                .get();
+        return (V) this.table[index].value;
     }
 
     /**
@@ -74,43 +82,29 @@ public class HashMap<K, V> implements Iterable<V> {
      * @return - true or false in dependency of result
      */
     public boolean delete(K key) {
-        if (!this.hasKey(key)) {
+        int index = this.indexFor(key.hashCode());
+        if (this.table[index] == null) {
             return false;
         }
-        int position = findIndex(key);
-        this.table[position] = null;
-        System.arraycopy(this.table, position + 1, this.table, position, this.table.length - (position + 1));
-        this.table = Arrays.copyOf(this.table, this.table.length - 1);
-        this.index -= 1;
+        this.table[index] = null;
         return true;
     }
 
     /**
-     * Method has realizes checking on the have of key in table
+     * Method has realizes making of index in table for new element
      *
-     * @param key - key
-     * @return - true or false in dependency of result
+     * @param hash - hashcode
+     * @return - index
      */
-    private boolean hasKey(K key) {
-        return Arrays.stream(this.table)
-                .filter(j -> j != null)
-                .flatMap(i -> Stream.of(i.key))
-                .anyMatch(k -> k.hashCode() == key.hashCode() ? k.equals(key) : false);
+    private int indexFor(int hash) {
+        return hash & (this.table.length - 1);
     }
 
     /**
-     * Method has realizes of looking for index in table on the gave Key in parameters
-     *
-     * @param key - key
-     * @return - index
+     * Method has realizes change for table by twice capacity
      */
-    private int findIndex(K key) {
-        if (!this.hasKey(key)) {
-            throw new NoSuchElementException();
-        }
-        return (int) Arrays.stream(this.table)
-                .takeWhile(i -> !i.key.equals(key))
-                .count();
+    private void changeTable() {
+        this.table = Arrays.copyOf(this.table, this.table.length * 2);
     }
 
     @Override
