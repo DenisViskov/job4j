@@ -3,6 +3,7 @@ package ru.job4j.map;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Class has realize HashMap
@@ -115,10 +116,16 @@ public class HashMap<K, V> implements Iterable<V> {
              */
             private int position = 0;
 
+            /**
+             * Entry
+             */
+            private Optional<Entry> entry;
+
             @Override
             public boolean hasNext() {
-                return position < table.length
-                        && table[position] != null ? true : false;
+                return Arrays.stream(table)
+                        .skip(position)
+                        .anyMatch(i -> i != null);
             }
 
             @Override
@@ -126,7 +133,11 @@ public class HashMap<K, V> implements Iterable<V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return (V) table[position++].value;
+                entry = Optional.ofNullable(table[position++]);
+                while (!entry.isPresent()) {
+                    entry = Optional.ofNullable(table[position++]);
+                }
+                return (V) entry.get().value;
             }
         };
     }
