@@ -29,12 +29,17 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-        if (!this.findBy(parent).isPresent() && !this.findBy(child).isPresent()) {
-            this.root.children.add(new Node<>(parent));
-            this.findBy(parent).get().children.add(new Node<>(child));
+        Optional<Node<E>> father = findBy(parent);
+        Optional<Node<E>> son = findBy(child);
+        if (father.isPresent() && son.isPresent()) {
+            return rsl;
+        } else if (father.isPresent()) {
+            father.get().children.add(new Node<>(child));
             rsl = true;
-        } else if (this.findBy(parent).isPresent()) {
-            this.findBy(parent).get().children.add(new Node<>(child));
+        } else {
+            Node<E> result = new Node<>(parent);
+            result.children.add(new Node<>(child));
+            root.children.add(result);
             rsl = true;
         }
         return rsl;
