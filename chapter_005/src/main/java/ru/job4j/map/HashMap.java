@@ -42,13 +42,12 @@ public class HashMap<K, V> implements Iterable<V> {
      */
     public boolean insert(K key, V value) {
         boolean result = true;
+        boolean isChangedCapacity = changeTable();
         int index = this.indexFor(key.hashCode());
         if (this.table[index] == null) {
             this.table[index] = new Entry(key, value);
             this.size++;
-        } else if (((double) this.size / (double) this.table.length) > this.loadFactor) {
-            this.changeTable();
-            index = this.indexFor(key.hashCode());
+        } else if (isChangedCapacity) {
             this.table[index] = new Entry(key, value);
             this.size++;
         } else {
@@ -104,8 +103,12 @@ public class HashMap<K, V> implements Iterable<V> {
     /**
      * Method has realizes change for table by twice capacity
      */
-    private void changeTable() {
-        this.table = Arrays.copyOf(this.table, this.table.length * 2);
+    private boolean changeTable() {
+        boolean changeCapacity = ((double) this.size / (double) this.table.length) > loadFactor;
+        if (changeCapacity) {
+            this.table = Arrays.copyOf(this.table, this.table.length * 2);
+        }
+        return changeCapacity;
     }
 
     @Override
@@ -123,9 +126,16 @@ public class HashMap<K, V> implements Iterable<V> {
 
             @Override
             public boolean hasNext() {
-                return Arrays.stream(table)
-                        .skip(position)
-                        .anyMatch(i -> i != null);
+                int index = position;
+                boolean flag = false;
+                while (index < table.length) {
+                    if (table[index] != null) {
+                        flag = true;
+                        break;
+                    }
+                    index++;
+                }
+                return flag;
             }
 
             @Override
