@@ -1,9 +1,7 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class has realize HashMap
@@ -106,7 +104,14 @@ public class HashMap<K, V> implements Iterable<V> {
     private boolean changeTable() {
         boolean changeCapacity = ((double) this.size / (double) this.table.length) > loadFactor;
         if (changeCapacity) {
-            this.table = Arrays.copyOf(this.table, this.table.length * 2);
+            int capacity = this.table.length;
+            List<Entry> nonNull = Arrays.stream(this.table)
+                    .filter(i -> i != null)
+                    .collect(Collectors.toList());
+            this.table = new Entry[capacity * 2];
+            for (Entry<K, V> element : nonNull) {
+                insert(element.key, element.value);
+            }
         }
         return changeCapacity;
     }
