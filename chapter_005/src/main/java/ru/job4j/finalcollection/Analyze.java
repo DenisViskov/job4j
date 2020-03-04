@@ -1,7 +1,8 @@
-package ru.job4j.finalCollection;
+package ru.job4j.finalcollection;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class has realizes analyze about changes in Lists
@@ -119,12 +120,21 @@ public class Analyze {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Info info = (Info) o;
-            return added == info.added &&
-                    changed == info.changed &&
-                    deleted == info.deleted;
+            return added == info.added
+                    && changed == info.changed
+                    && deleted == info.deleted;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(added, changed, deleted);
         }
     }
 }

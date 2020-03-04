@@ -1,4 +1,4 @@
-package ru.job4j.finalCollection;
+package ru.job4j.finalcollection;
 
 import org.hamcrest.core.Is;
 import org.junit.Assert;
