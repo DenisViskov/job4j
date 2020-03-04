@@ -38,7 +38,8 @@ public class AnalizeTest {
 
     @Test
     public void howMuchIsChangedUserDiffTest() {
-        List<Analize.User> current = previous;
+        List<Analize.User> current = new ArrayList<>();
+        current.addAll(previous);
         current.get(0).setName("newName");
         current.get(2).setName("newName");
         Analize.Info out = new Analize().diff(previous, current);
