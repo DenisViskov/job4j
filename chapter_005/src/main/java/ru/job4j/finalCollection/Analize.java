@@ -1,6 +1,9 @@
 package ru.job4j.finalCollection;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Денис Висков
@@ -10,7 +13,21 @@ import java.util.List;
 public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
-        return null;
+        return new Info(wasAdded(previous, current), wasChanged(previous, current), wasDeleted(previous, current));
+    }
+
+    private int wasAdded(List<User> previous, List<User> current) {
+        int result = current.size() - previous.size();
+        return result >= 0 ? result : 0;
+    }
+
+    private int wasDeleted(List<User> previous, List<User> current) {
+        int result = previous.size() - current.size();
+        return result >= 0 ? result : 0;
+    }
+
+    private int wasChanged(List<User> previous, List<User> current) {
+
     }
 
     public static class User {

@@ -5,31 +5,33 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnalizeTest {
 
-    private List<Analize.User> previous;
+    private List<Analize.User> previous = new ArrayList<>();
 
     @Before
     public void setUp() {
-        Analize.User first = new Analize.User((int) Math.random(), "Vasya");
-        Analize.User second = new Analize.User((int) Math.random(), "Petya");
-        Analize.User third = new Analize.User((int) Math.random(), "Oleg");
-        Analize.User four = new Analize.User((int) Math.random(), "Alexander");
-        Analize.User five = new Analize.User((int) Math.random(), "Pavel");
-        previous = List.of(first,
-                second,
-                third,
-                four,
-                five);
+        Analize.User first = new Analize.User((int) (Math.random() * 100), "Vasya");
+        Analize.User second = new Analize.User((int) (Math.random() * 100), "Petya");
+        Analize.User third = new Analize.User((int) (Math.random() * 100), "Oleg");
+        Analize.User four = new Analize.User((int) (Math.random() * 100), "Alexander");
+        Analize.User five = new Analize.User((int) (Math.random() * 100), "Pavel");
+        previous.add(first);
+        previous.add(second);
+        previous.add(third);
+        previous.add(four);
+        previous.add(five);
     }
 
     @Test
     public void howMuchIsAddedUserDiffTest() {
-        List<Analize.User> current = previous;
-        current.add(new Analize.User((int) Math.random(), "Ivan"));
-        current.add(new Analize.User((int) Math.random(), "Georgy"));
+        List<Analize.User> current = new ArrayList<>();
+        current.addAll(previous);
+        current.add(new Analize.User((int) (Math.random() * 100), "Ivan"));
+        current.add(new Analize.User((int) (Math.random() * 100), "Georgy"));
         Analize.Info out = new Analize().diff(previous, current);
         Assert.assertThat(out, Is.is(new Analize.Info(2, 0, 0)));
     }
