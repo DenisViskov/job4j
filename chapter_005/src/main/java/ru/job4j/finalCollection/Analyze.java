@@ -2,29 +2,58 @@ package ru.job4j.finalCollection;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 /**
+ * Class has realizes analyze about changes in Lists
+ *
  * @author Денис Висков
  * @version 1.0
  * @since 04.03.2020
  */
-public class Analize {
+public class Analyze {
 
+    /**
+     * Method has realizes analyze of changes by two lists
+     *
+     * @param previous - previous
+     * @param current  - current
+     * @return - Info information
+     */
     public Info diff(List<User> previous, List<User> current) {
         return new Info(wasAdded(previous, current), wasChanged(previous, current), wasDeleted(previous, current));
     }
 
+    /**
+     * Method has realizes looking for changes of added elements between two lists
+     *
+     * @param previous - previous
+     * @param current  - current
+     * @return - integer
+     */
     private int wasAdded(List<User> previous, List<User> current) {
         int result = current.size() - previous.size();
         return result >= 0 ? result : 0;
     }
 
+    /**
+     * Method has realizes looking for changes of deleted elements between two lists
+     *
+     * @param previous - previous
+     * @param current  - current
+     * @return - integer
+     */
     private int wasDeleted(List<User> previous, List<User> current) {
         int result = previous.size() - current.size();
         return result >= 0 ? result : 0;
     }
 
+    /**
+     * Method has realizes looking for changes of names among elements
+     *
+     * @param previous - previous
+     * @param current  - current
+     * @return - integer
+     */
     private int wasChanged(List<User> previous, List<User> current) {
         int result = 0;
         Iterator<User> prev = previous.iterator();
@@ -33,14 +62,24 @@ public class Analize {
             User first = prev.next();
             User second = curr.next();
             if (first.id == second.id) {
-                result = first.name.equals(second.name) ? 0 : ++result;
+                result = first.name.equals(second.name) ? result : ++result;
             }
         }
         return result;
     }
 
+    /**
+     * Class has realizes model of data User
+     */
     public static class User {
-        private int id;
+        /**
+         * ID of User
+         */
+        private final int id;
+
+        /**
+         * Name of User
+         */
         private String name;
 
         public User(int id, String name) {
@@ -48,18 +87,28 @@ public class Analize {
             this.name = name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setId(int id) {
-            this.id = id;
+        public int getId() {
+            return id;
         }
     }
 
+    /**
+     * Class has realizes model of data Info
+     */
     public static class Info {
+        /**
+         * Added element
+         */
         private int added;
+
+        /**
+         * Changed element
+         */
         private int changed;
+
+        /**
+         * Was deleted
+         */
         private int deleted;
 
         public Info(int added, int changed, int deleted) {
@@ -76,11 +125,6 @@ public class Analize {
             return added == info.added &&
                     changed == info.changed &&
                     deleted == info.deleted;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(added, changed, deleted);
         }
     }
 }
