@@ -3,6 +3,7 @@ package ru.job4j.finalcollection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class has realizes analyze about changes in Lists
@@ -32,8 +33,23 @@ public class Analyze {
      * @return - integer
      */
     private int wasAdded(List<User> previous, List<User> current) {
-        int result = current.size() - previous.size();
-        return result >= 0 ? result : 0;
+        List<Integer> prevID = previous.stream()
+                .map(i -> i.id)
+                .collect(Collectors.toList());
+        List<Integer> currID = current.stream()
+                .map(i -> i.id)
+                .collect(Collectors.toList());
+        int result = 0;
+        if (prevID.size() < currID.size()) {
+            result = currID.size() - prevID.size();
+        } else if (prevID.size() == currID.size()) {
+            for (Integer userID : currID) {
+                if (!prevID.contains(userID)) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -44,8 +60,23 @@ public class Analyze {
      * @return - integer
      */
     private int wasDeleted(List<User> previous, List<User> current) {
-        int result = previous.size() - current.size();
-        return result >= 0 ? result : 0;
+        List<Integer> prevID = previous.stream()
+                .map(i -> i.id)
+                .collect(Collectors.toList());
+        List<Integer> currID = current.stream()
+                .map(i -> i.id)
+                .collect(Collectors.toList());
+        int result = 0;
+        if (prevID.size() > currID.size()) {
+            result = prevID.size() - currID.size();
+        } else if (prevID.size() == currID.size()) {
+            for (Integer userID : currID) {
+                if (!prevID.contains(userID)) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
     /**
