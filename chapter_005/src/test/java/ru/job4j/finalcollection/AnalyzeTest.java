@@ -57,7 +57,7 @@ public class AnalyzeTest {
     }
 
     @Test
-    public void AddAndRemoveOneElementDiffTest() {
+    public void addAndRemoveOneElementDiffTest() {
         List<Analyze.User> current = new ArrayList<>();
         current.addAll(previous);
         current.remove(4);
@@ -67,7 +67,7 @@ public class AnalyzeTest {
     }
 
     @Test
-    public void AddAndRemoveAndChangedOneElementDiffTest() {
+    public void addAndRemoveAndChangedOneElementDiffTest() {
         List<Analyze.User> current = new ArrayList<>();
         current.addAll(previous);
         current.remove(4);
