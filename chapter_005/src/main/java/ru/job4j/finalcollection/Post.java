@@ -1,5 +1,6 @@
 package ru.job4j.finalcollection;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,18 +15,21 @@ import java.util.stream.Collectors;
 public class Post {
 
     public List<User> mergeOfUsers(List<User> users) {
+        List<User> result = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
             Iterator<String> mails = users.get(i).mails.iterator();
-            Iterator<User> userIt = users.iterator();
-            while (mails.hasNext() && userIt.hasNext()) {
+            while (mails.hasNext()) {
                 String mail = mails.next();
-                User user = userIt.next();
-                if (users.get(i) != user && user.mails.contains(mail)) {
-                    user.mails.addAll(users.get(i).mails);
-                    users.remove(i);
-                    user.mails = user.mails.stream()
-                            .distinct()
-                            .collect(Collectors.toList());
+                for (int k = 0; k < users.size(); k++) {
+                    if (users.get(k) != users.get(i) && users.get(k).mails.contains(mail)) {
+                        User newUser = new User(users.get(i).name, users.get(i).mails);
+                        newUser.mails.addAll(users.get(k).mails);
+                        newUser.mails = newUser.mails.stream()
+                                .distinct()
+                                .collect(Collectors.toList());
+                        result.add(newUser);
+                        users.remove(users.get(k));
+                    }
                 }
             }
         }
