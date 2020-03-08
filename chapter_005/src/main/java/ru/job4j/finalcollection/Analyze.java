@@ -3,7 +3,7 @@ package ru.job4j.finalcollection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Class has realizes analyze about changes in Lists
@@ -22,32 +22,42 @@ public class Analyze {
      * @return - Info information
      */
     public Info diff(List<User> previous, List<User> current) {
-        return new Info(wasAdded(previous, current), wasChanged(previous, current), wasDeleted(previous, current));
+        int wasAdded = 0;
+        int wasChanged = 0;
+        int wasDeleted = 0;
+        if (current.size() > previous.size()) {
+            wasAdded = current.size() - previous.size();
+        } else if (current.size() < previous.size()) {
+            wasDeleted = previous.size() - current.size();
+        } else {
+            Iterator<User> prevIt = previous.iterator();
+            Iterator<User> currIt = current.iterator();
+            while (prevIt.hasNext() || currIt.hasNext()) {
+                Optional<User> first = prevIt.hasNext()
+                        ? Optional.of(prevIt.next()) : Optional.ofNullable(null);
+                Optional<User> second = currIt.hasNext()
+                        ? Optional.of(currIt.next()) : Optional.ofNullable(null);
+                wasAdded += wasAdded(first, second);
+                wasChanged += wasChanged(first, second);
+                wasDeleted += wasDeleted(first, second);
+            }
+        }
+        return new Info(wasAdded, wasChanged, wasDeleted);
     }
 
     /**
      * Method has realizes looking for changes of added elements between two lists
      *
-     * @param previous - previous
-     * @param current  - current
+     * @param first  - previous
+     * @param second - current
      * @return - integer
      */
-    private int wasAdded(List<User> previous, List<User> current) {
-        List<Integer> prevID = previous.stream()
-                .map(i -> i.id)
-                .collect(Collectors.toList());
-        List<Integer> currID = current.stream()
-                .map(i -> i.id)
-                .collect(Collectors.toList());
+    private int wasAdded(Optional<User> first, Optional<User> second) {
         int result = 0;
-        if (prevID.size() < currID.size()) {
-            result = currID.size() - prevID.size();
-        } else if (prevID.size() == currID.size()) {
-            for (int i = 0; i < prevID.size(); i++) {
-                if (!prevID.get(i).equals(currID.get(i))) {
-                    result++;
-                }
-            }
+        if (first.isPresent() && second.isPresent()) {
+            result = first.get().id != second.get().id ? ++result : 0;
+        } else {
+            result++;
         }
         return result;
     }
@@ -55,26 +65,16 @@ public class Analyze {
     /**
      * Method has realizes looking for changes of deleted elements between two lists
      *
-     * @param previous - previous
-     * @param current  - current
+     * @param first  - previous
+     * @param second - current
      * @return - integer
      */
-    private int wasDeleted(List<User> previous, List<User> current) {
-        List<Integer> prevID = previous.stream()
-                .map(i -> i.id)
-                .collect(Collectors.toList());
-        List<Integer> currID = current.stream()
-                .map(i -> i.id)
-                .collect(Collectors.toList());
+    private int wasDeleted(Optional<User> first, Optional<User> second) {
         int result = 0;
-        if (prevID.size() > currID.size()) {
-            result = prevID.size() - currID.size();
-        } else if (prevID.size() == currID.size()) {
-            for (int i = 0; i < prevID.size(); i++) {
-                if (!prevID.get(i).equals(currID.get(i))) {
-                    result++;
-                }
-            }
+        if (first.isPresent() && second.isPresent()) {
+            result = first.get().id != second.get().id ? ++result : 0;
+        } else {
+            result++;
         }
         return result;
     }
@@ -82,20 +82,15 @@ public class Analyze {
     /**
      * Method has realizes looking for changes of names among elements
      *
-     * @param previous - previous
-     * @param current  - current
+     * @param first  - previous
+     * @param second - current
      * @return - integer
      */
-    private int wasChanged(List<User> previous, List<User> current) {
+    private int wasChanged(Optional<User> first, Optional<User> second) {
         int result = 0;
-        Iterator<User> prev = previous.iterator();
-        Iterator<User> curr = current.iterator();
-        while (prev.hasNext() && curr.hasNext()) {
-            User first = prev.next();
-            User second = curr.next();
-            if (first.id == second.id) {
-                result = first.name.equals(second.name) ? result : ++result;
-            }
+        if (first.isPresent() && second.isPresent()) {
+            result = first.get().id == second.get().id
+                    && !first.get().name.equals(second.get().name) ? ++result : 0;
         }
         return result;
     }
