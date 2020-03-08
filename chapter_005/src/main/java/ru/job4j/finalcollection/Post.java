@@ -1,8 +1,6 @@
 package ru.job4j.finalcollection;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -15,25 +13,33 @@ import java.util.stream.Collectors;
 public class Post {
 
     public List<User> mergeOfUsers(List<User> users) {
-        List<User> result = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
-            Iterator<String> mails = users.get(i).mails.iterator();
-            while (mails.hasNext()) {
-                String mail = mails.next();
-                for (int k = 0; k < users.size(); k++) {
-                    if (users.get(k) != users.get(i) && users.get(k).mails.contains(mail)) {
-                        User newUser = new User(users.get(i).name, users.get(i).mails);
-                        newUser.mails.addAll(users.get(k).mails);
-                        newUser.mails = newUser.mails.stream()
-                                .distinct()
-                                .collect(Collectors.toList());
-                        result.add(newUser);
-                        users.remove(users.get(k));
-                    }
+            List<User> duplicates = hasDuplicate(users.get(i), users);
+            if (duplicates.size() != 0) {
+                for (User copyUser : duplicates) {
+                    users.get(i).mails.addAll(copyUser.mails);
+                    users.get(i).mails = users.get(i).mails.stream()
+                            .distinct()
+                            .collect(Collectors.toList());
+                    users.remove(copyUser);
                 }
             }
         }
         return users;
+    }
+
+    private List<User> hasDuplicate(User byUser, List<User> users) {
+        Iterator<String> mails = byUser.mails.iterator();
+        List<User> hasDuplicate = new ArrayList<>();
+        while (mails.hasNext()) {
+            String mail = mails.next();
+            for (User user : users) {
+                if (byUser != user && user.mails.contains(mail)) {
+                    hasDuplicate.add(user);
+                }
+            }
+        }
+        return hasDuplicate;
     }
 
     public static class User {

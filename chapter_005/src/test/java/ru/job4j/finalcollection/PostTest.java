@@ -44,7 +44,7 @@ public class PostTest {
         users.add(third);
         users.add(four);
         users.add(five);
-        List<Post.User> expected = List.of(first, third);
+        List<Post.User> expected = List.of(third, four);
         List<Post.User> out = new Post().mergeOfUsers(users);
         assertThat(out, is(expected));
     }
