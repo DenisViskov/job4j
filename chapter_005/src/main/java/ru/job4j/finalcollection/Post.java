@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Класс реализует ...
+ * Class has realize merge of Users by email
  *
  * @author Денис Висков
  * @version 1.0
@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
  */
 public class Post {
 
+    /**
+     * Method has realize merge of users by their duplicates emails
+     *
+     * @param users - list of users
+     * @return - new list without duplicates
+     */
     public List<User> mergeOfUsers(List<User> users) {
         for (int i = 0; i < users.size(); i++) {
             List<User> duplicates = hasDuplicate(users.get(i), users);
@@ -28,6 +34,13 @@ public class Post {
         return users;
     }
 
+    /**
+     * Method has realizes looking for duplicates of emails mid users
+     *
+     * @param byUser - destination user
+     * @param users  - list of users
+     * @return - List of duplicates
+     */
     private List<User> hasDuplicate(User byUser, List<User> users) {
         Iterator<String> mails = byUser.mails.iterator();
         List<User> hasDuplicate = new ArrayList<>();
@@ -42,8 +55,18 @@ public class Post {
         return hasDuplicate;
     }
 
+    /**
+     * Class has realizes model of data User
+     */
     public static class User {
+        /**
+         * Name
+         */
         private String name;
+
+        /**
+         * Emails
+         */
         private List<String> mails;
 
         public User(String name, List<String> mails) {
