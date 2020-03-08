@@ -43,8 +43,8 @@ public class Analyze {
         if (prevID.size() < currID.size()) {
             result = currID.size() - prevID.size();
         } else if (prevID.size() == currID.size()) {
-            for (Integer userID : currID) {
-                if (!prevID.contains(userID)) {
+            for (int i = 0; i < prevID.size(); i++) {
+                if (!prevID.get(i).equals(currID.get(i))) {
                     result++;
                 }
             }
@@ -70,8 +70,8 @@ public class Analyze {
         if (prevID.size() > currID.size()) {
             result = prevID.size() - currID.size();
         } else if (prevID.size() == currID.size()) {
-            for (Integer userID : currID) {
-                if (!prevID.contains(userID)) {
+            for (int i = 0; i < prevID.size(); i++) {
+                if (!prevID.get(i).equals(currID.get(i))) {
                     result++;
                 }
             }
