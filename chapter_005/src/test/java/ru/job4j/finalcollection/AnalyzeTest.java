@@ -76,4 +76,16 @@ public class AnalyzeTest {
         Analyze.Info out = new Analyze().diff(previous, current);
         Assert.assertThat(out, Is.is(new Analyze.Info(1, 1, 1)));
     }
+
+    @Test
+    public void addTwoAndRemoveAndChangedOneElementDiffTest() {
+        List<Analyze.User> current = new ArrayList<>();
+        current.addAll(previous);
+        current.remove(4);
+        current.add(new Analyze.User((int) (Math.random() * 1000), "Sergey"));
+        current.add(new Analyze.User((int) (Math.random() * 1000), "Pavel"));
+        current.set(2, new Analyze.User(previous.get(2).getId(), "newName"));
+        Analyze.Info out = new Analyze().diff(previous, current);
+        Assert.assertThat(out, Is.is(new Analyze.Info(2, 1, 1)));
+    }
 }
