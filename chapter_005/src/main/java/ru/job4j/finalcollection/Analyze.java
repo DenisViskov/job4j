@@ -1,7 +1,7 @@
 package ru.job4j.finalcollection;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Class has realizes analyze about changes in Lists
@@ -21,75 +21,7 @@ public class Analyze {
      */
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info(0, 0, 0);
-        Map<Integer, String> map = previous.stream()
-                .collect(Collectors.toMap(i -> i.id, i -> i.name));
-        int size = map.size();
-        for (User user : current) {
-            map.put(user.id, user.name);
-            if (map.size() > size) {
-                info.added++;
-            } else if (map.size() == size) {
-                String name = map.get(user.id);
-                if (!name.equals(user.name)) {
-                    info.changed++;
-                }
-            }
-        }
-        if (map.size() > size) {
-            int difference = map.size() - size;
-            info.deleted = difference == info.added ? 0 : difference - info.added;
-        }
         return null;
-    }
-
-    /**
-     * Method has realizes looking for changes of added elements between two lists
-     *
-     * @param first  - previous
-     * @param second - current
-     * @return - integer
-     */
-    private int wasAdded(Optional<User> first, Optional<User> second) {
-        int result = 0;
-        if (first.isPresent() && second.isPresent()) {
-            result = first.get().id != second.get().id ? ++result : 0;
-        } else {
-            result++;
-        }
-        return result;
-    }
-
-    /**
-     * Method has realizes looking for changes of deleted elements between two lists
-     *
-     * @param first  - previous
-     * @param second - current
-     * @return - integer
-     */
-    private int wasDeleted(Optional<User> first, Optional<User> second) {
-        int result = 0;
-        if (first.isPresent() && second.isPresent()) {
-            result = first.get().id != second.get().id ? ++result : 0;
-        } else {
-            result++;
-        }
-        return result;
-    }
-
-    /**
-     * Method has realizes looking for changes of names among elements
-     *
-     * @param first  - previous
-     * @param second - current
-     * @return - integer
-     */
-    private int wasChanged(Optional<User> first, Optional<User> second) {
-        int result = 0;
-        if (first.isPresent() && second.isPresent()) {
-            result = first.get().id == second.get().id
-                    && !first.get().name.equals(second.get().name) ? ++result : 0;
-        }
-        return result;
     }
 
     /**
@@ -113,14 +45,6 @@ public class Analyze {
 
         public int getId() {
             return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         @Override
