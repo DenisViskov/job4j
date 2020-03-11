@@ -40,8 +40,8 @@ public class AnalyzeTest {
     public void howMuchIsChangedUserDiffTest() {
         List<Analyze.User> current = new ArrayList<>();
         current.addAll(previous);
-        current.get(0).setName("newName");
-        current.get(2).setName("newName");
+        current.set(0, new Analyze.User(previous.get(0).getId(), "newName"));
+        current.set(2, new Analyze.User(previous.get(2).getId(), "newName"));
         Analyze.Info out = new Analyze().diff(previous, current);
         Assert.assertThat(out, Is.is(new Analyze.Info(0, 2, 0)));
     }
@@ -72,20 +72,8 @@ public class AnalyzeTest {
         current.addAll(previous);
         current.remove(4);
         current.add(new Analyze.User((int) (Math.random() * 1000), "Sergey"));
-        current.get(2).setName("newName");
+        current.set(2, new Analyze.User(previous.get(2).getId(), "newName"));
         Analyze.Info out = new Analyze().diff(previous, current);
         Assert.assertThat(out, Is.is(new Analyze.Info(1, 1, 1)));
-    }
-
-    @Test
-    public void addTwoAndRemoveAndChangedOneElementDiffTest() {
-        List<Analyze.User> current = new ArrayList<>();
-        current.addAll(previous);
-        current.remove(4);
-        current.add(new Analyze.User((int) (Math.random() * 1000), "Sergey"));
-        current.add(new Analyze.User((int) (Math.random() * 1000), "Pavel"));
-        current.get(2).setName("newName");
-        Analyze.Info out = new Analyze().diff(previous, current);
-        Assert.assertThat(out, Is.is(new Analyze.Info(2, 1, 1)));
     }
 }
