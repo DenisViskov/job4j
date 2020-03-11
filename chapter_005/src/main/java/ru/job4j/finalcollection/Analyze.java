@@ -1,7 +1,9 @@
 package ru.job4j.finalcollection;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class has realizes analyze about changes in Lists
@@ -21,7 +23,64 @@ public class Analyze {
      */
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info(0, 0, 0);
-        return null;
+        Map<Integer, String> first = previous.stream()
+                .collect(Collectors.toMap(i -> i.id, k -> k.name));
+        Map<Integer, String> second = current.stream()
+                .collect(Collectors.toMap(i -> i.id, k -> k.name));
+        if (second.size() > first.size()) {
+            info = ifCurrentGreaterPrevious(first, second);
+        } else if (first.size() > second.size() || first.size() == second.size()) {
+            info = ifPreviousGreaterCurrent(first, second);
+        }
+        return info;
+    }
+
+    /**
+     * Method has realizes counting for added and then changed and deleted elements
+     *
+     * @param first  - first map
+     * @param second - second map
+     * @return - Info
+     */
+    private Info ifCurrentGreaterPrevious(Map<Integer, String> first, Map<Integer, String> second) {
+        Info result = new Info(0, 0, 0);
+        second.forEach((id, name) -> {
+            if (!first.containsKey(id)) {
+                result.added++;
+            } else {
+                result.changed = !first.get(id).equals(name) ? ++result.changed : result.changed;
+            }
+        });
+        first.forEach((id, name) -> {
+            if (!second.containsKey(id)) {
+                result.deleted++;
+            }
+        });
+        return result;
+    }
+
+    /**
+     * Method has realizes counting for added and then changed and deleted elements
+     *
+     * @param first  - first map
+     * @param second - second map
+     * @return - Info
+     */
+    private Info ifPreviousGreaterCurrent(Map<Integer, String> first, Map<Integer, String> second) {
+        Info result = new Info(0, 0, 0);
+        first.forEach((id, name) -> {
+            if (!second.containsKey(id)) {
+                result.deleted++;
+            } else {
+                result.changed = !second.get(id).equals(name) ? ++result.changed : result.changed;
+            }
+        });
+        second.forEach((id, name) -> {
+            if (!first.containsKey(id)) {
+                result.added++;
+            }
+        });
+        return result;
     }
 
     /**
