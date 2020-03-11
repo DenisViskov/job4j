@@ -1,9 +1,7 @@
 package ru.job4j.finalcollection;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class has realizes analyze about changes in Lists
@@ -22,27 +20,26 @@ public class Analyze {
      * @return - Info information
      */
     public Info diff(List<User> previous, List<User> current) {
-        int wasAdded = 0;
-        int wasChanged = 0;
-        int wasDeleted = 0;
-        if (current.size() > previous.size()) {
-            wasAdded = current.size() - previous.size();
-        } else if (current.size() < previous.size()) {
-            wasDeleted = previous.size() - current.size();
-        } else {
-            Iterator<User> prevIt = previous.iterator();
-            Iterator<User> currIt = current.iterator();
-            while (prevIt.hasNext() || currIt.hasNext()) {
-                Optional<User> first = prevIt.hasNext()
-                        ? Optional.of(prevIt.next()) : Optional.ofNullable(null);
-                Optional<User> second = currIt.hasNext()
-                        ? Optional.of(currIt.next()) : Optional.ofNullable(null);
-                wasAdded += wasAdded(first, second);
-                wasChanged += wasChanged(first, second);
-                wasDeleted += wasDeleted(first, second);
+        Info info = new Info(0, 0, 0);
+        Map<Integer, String> map = previous.stream()
+                .collect(Collectors.toMap(i -> i.id, i -> i.name));
+        int size = map.size();
+        for (User user : current) {
+            map.put(user.id, user.name);
+            if (map.size() > size) {
+                info.added++;
+            } else if (map.size() == size) {
+                String name = map.get(user.id);
+                if (!name.equals(user.name)) {
+                    info.changed++;
+                }
             }
         }
-        return new Info(wasAdded, wasChanged, wasDeleted);
+        if (map.size() > size) {
+            int difference = map.size() - size;
+            info.deleted = difference == info.added ? 0 : difference - info.added;
+        }
+        return null;
     }
 
     /**
@@ -124,6 +121,20 @@ public class Analyze {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return id == user.id &&
+                    name.equals(user.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name);
         }
     }
 
