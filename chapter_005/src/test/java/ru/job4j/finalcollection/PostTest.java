@@ -4,18 +4,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 public class PostTest {
 
-    private List<String> firstList = new ArrayList<>();
-    private List<String> secondList = new ArrayList<>();
-    private List<String> thirdList = new ArrayList<>();
-    private List<String> fourList = new ArrayList<>();
-    private List<String> fiveList = new ArrayList<>();
+    private Set<String> firstList = new HashSet<>();
+    private Set<String> secondList = new HashSet<>();
+    private Set<String> thirdList = new HashSet<>();
+    private Set<String> fourList = new HashSet<>();
+    private Set<String> fiveList = new HashSet<>();
 
     @Before
     public void setUp() {
@@ -36,8 +38,8 @@ public class PostTest {
         Post.User first = new Post.User("Ivan", firstList);
         Post.User second = new Post.User("Petr", secondList);
         Post.User third = new Post.User("Alex", thirdList);
-        Post.User four = new Post.User("Georg", fourList);
-        Post.User five = new Post.User("Petr", fiveList);
+        Post.User four = new Post.User("Vladimir", fourList);
+        Post.User five = new Post.User("Oleg", fiveList);
         List<Post.User> users = new ArrayList<>();
         users.add(first);
         users.add(second);

@@ -19,40 +19,17 @@ public class Post {
      * @return - new list without duplicates
      */
     public List<User> mergeOfUsers(List<User> users) {
-        for (int i = 0; i < users.size(); i++) {
-            List<User> duplicates = hasDuplicate(users.get(i), users);
-            if (duplicates.size() != 0) {
-                for (User copyUser : duplicates) {
-                    users.get(i).mails.addAll(copyUser.mails);
-                    users.get(i).mails = users.get(i).mails.stream()
-                            .distinct()
-                            .collect(Collectors.toList());
-                    users.remove(copyUser);
-                }
-            }
+        Map<String, User> second = new HashMap<>();
+        for (User user : users) {
+            second.putAll(collectToMap(user));
         }
-        return users;
+        return null;
     }
 
-    /**
-     * Method has realizes looking for duplicates of emails mid users
-     *
-     * @param byUser - destination user
-     * @param users  - list of users
-     * @return - List of duplicates
-     */
-    private List<User> hasDuplicate(User byUser, List<User> users) {
-        Iterator<String> mails = byUser.mails.iterator();
-        List<User> hasDuplicate = new ArrayList<>();
-        while (mails.hasNext()) {
-            String mail = mails.next();
-            for (User user : users) {
-                if (byUser != user && user.mails.contains(mail)) {
-                    hasDuplicate.add(user);
-                }
-            }
-        }
-        return hasDuplicate;
+    private Map<String, User> collectToMap(User user) {
+        Map<String, User> result = user.mails.stream()
+                .collect(Collectors.toMap(i -> i, k -> user));
+        return result;
     }
 
     /**
@@ -67,11 +44,25 @@ public class Post {
         /**
          * Emails
          */
-        private List<String> mails;
+        private Set<String> mails;
 
-        public User(String name, List<String> mails) {
+        public User(String name, Set<String> mails) {
             this.name = name;
             this.mails = mails;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return name.equals(user.name) &&
+                    mails.equals(user.mails);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, mails);
         }
     }
 }
