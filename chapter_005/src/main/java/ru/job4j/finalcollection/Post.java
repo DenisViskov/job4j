@@ -19,6 +19,8 @@ public class Post {
      * @return - new list without duplicates
      */
     public List<User> mergeOfUsers(List<User> users) {
+        Map<User, Set<String>> first = users.stream()
+                .collect(Collectors.toMap(i -> i, k -> k.mails));
         Map<String, User> second = new HashMap<>();
         for (User user : users) {
             second.putAll(collectToMap(user));
@@ -53,11 +55,15 @@ public class Post {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             User user = (User) o;
-            return name.equals(user.name) &&
-                    mails.equals(user.mails);
+            return name.equals(user.name)
+                    && mails.equals(user.mails);
         }
 
         @Override
