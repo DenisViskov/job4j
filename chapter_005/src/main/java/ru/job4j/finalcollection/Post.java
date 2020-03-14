@@ -25,6 +25,21 @@ public class Post {
         for (User user : users) {
             second.putAll(collectToMap(user));
         }
+        Set<User> result = new HashSet<>();
+        while (first.size() != 0) {
+            for (Map.Entry<String, User> pair : second.entrySet()) {
+                String mail = pair.getKey();
+                User user = pair.getValue();
+                Set<String> mailsFromFirst = first.remove(user);
+                if (mailsFromFirst == null) {
+                    continue;
+                } else if (mailsFromFirst.containsAll(user.mails)) {
+                    result.add(user);
+                } else if (mailsFromFirst.contains(mail)) {
+                    user.mails.addAll(mailsFromFirst);
+                }
+            }
+        }
         return null;
     }
 
