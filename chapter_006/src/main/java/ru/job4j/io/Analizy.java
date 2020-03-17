@@ -35,17 +35,19 @@ public class Analizy {
         StringBuilder builder = new StringBuilder();
         String lastWrite = "";
         for (String splitLine : lines) {
-            boolean add500 = lastWrite.endsWith("") && splitLine.contains("400") || splitLine.contains("500");
+            boolean add500 = !lastWrite.endsWith(";") && splitLine.contains("400") || splitLine.contains("500");
             boolean add200 = lastWrite.endsWith(";") && !splitLine.contains("400") && !splitLine.contains("500");
             if (add500) {
                 lastWrite = splitLine.replaceFirst("\\d+", "") + ";";
                 builder.append(lastWrite);
             } else if (add200) {
                 lastWrite = splitLine.replaceFirst("\\d+", "") + System.lineSeparator();
+                builder.append(lastWrite);
             } else {
                 continue;
             }
         }
+
         return builder.toString();
     }
 }
