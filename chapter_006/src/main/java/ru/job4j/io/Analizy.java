@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.StringJoiner;
 
 /**
- * Класс реализует ...
+ * Class has realizes reading server log and writing his report
  *
  * @author Денис Висков
  * @version 1.0
@@ -15,6 +15,13 @@ import java.util.StringJoiner;
  */
 public class Analizy {
 
+    /**
+     * Method has realizes writing report about work of server
+     *
+     * @param source - source file path
+     * @param target - target file path
+     * @throws IOException
+     */
     public void unavailable(String source, String target) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(source));
         PrintWriter writer = new PrintWriter(target);
@@ -30,24 +37,31 @@ public class Analizy {
         writer.close();
     }
 
+    /**
+     * Method has realizes building log by given parameters about doesn't work time of server
+     *
+     * @param line - Log of server
+     * @return - String doesn't work of time
+     */
     private String builderLog(String line) {
         String[] lines = line.split(System.lineSeparator());
         StringBuilder builder = new StringBuilder();
         String lastWrite = "";
         for (String splitLine : lines) {
-            boolean add500 = !lastWrite.endsWith(";") && splitLine.contains("400") || splitLine.contains("500");
-            boolean add200 = lastWrite.endsWith(";") && !splitLine.contains("400") && !splitLine.contains("500");
+            boolean add500 = !lastWrite.endsWith(";")
+                    && (splitLine.contains("400")
+                    || splitLine.contains("500"));
+            boolean add200 = lastWrite.endsWith(";")
+                    && !splitLine.contains("400")
+                    && !splitLine.contains("500");
             if (add500) {
                 lastWrite = splitLine.replaceFirst("\\d+", "") + ";";
                 builder.append(lastWrite);
             } else if (add200) {
                 lastWrite = splitLine.replaceFirst("\\d+", "") + System.lineSeparator();
                 builder.append(lastWrite);
-            } else {
-                continue;
             }
         }
-
         return builder.toString();
     }
 }
