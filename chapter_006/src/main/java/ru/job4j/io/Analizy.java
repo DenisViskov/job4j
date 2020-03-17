@@ -34,15 +34,10 @@ public class Analizy {
         String[] lines = line.split(System.lineSeparator());
         StringBuilder builder = new StringBuilder();
         for (String splitLine : lines) {
-            boolean addFirstLine = builder.length() == 0 && splitLine.contains("400") || splitLine.contains("500");
-            boolean addEndTime = builder.length() > 0 && !splitLine.contains("400") && !splitLine.contains("500");
-            if (addFirstLine) {
-                builder.append(splitLine.replaceFirst("\\d+", "") + ";");
-            } else if (addEndTime) {
-                builder.append(splitLine.replaceFirst("\\d+", "") + System.lineSeparator());
-            } else {
-                continue;
-            }
+            String lastWrite = "";
+            boolean addNewLine = lastWrite.endsWith("") && splitLine.contains("400") || splitLine.contains("500");
+            boolean addLine = lastWrite.endsWith(";") && splitLine.contains("400") || splitLine.contains("500");
+
         }
         return builder.toString();
     }
