@@ -24,11 +24,26 @@ public class Analizy {
                     .filter(lines -> !lines.equals(""))
                     .forEach(line::add);
         }
+        reader.close();
+        String result = builderLog(line.toString());
+        writer.println(result);
+        writer.close();
     }
 
     private String builderLog(String line) {
         String[] lines = line.split(System.lineSeparator());
-        return null;
-
+        StringBuilder builder = new StringBuilder();
+        for (String splitLine : lines) {
+            boolean addFirstLine = builder.length() == 0 && splitLine.contains("400") || splitLine.contains("500");
+            boolean addEndTime = builder.length() > 0 && !splitLine.contains("400") && !splitLine.contains("500");
+            if (addFirstLine) {
+                builder.append(splitLine.replaceFirst("\\d+", "") + ";");
+            } else if (addEndTime) {
+                builder.append(splitLine.replaceFirst("\\d+", "") + System.lineSeparator());
+            } else {
+                continue;
+            }
+        }
+        return builder.toString();
     }
 }
