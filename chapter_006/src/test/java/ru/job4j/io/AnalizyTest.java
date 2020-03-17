@@ -3,17 +3,17 @@ package ru.job4j.io;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.StringJoiner;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 
 public class AnalizyTest {
 
     @Test
-    public void unavailableTest() throws FileNotFoundException {
+    public void unavailableTest() throws IOException {
+        new Analizy().unavailable("./data/ServerLog.csv","./data/unavailable.csv");
         BufferedReader reader = new BufferedReader(new FileReader("./data/unavailable.csv"));
         StringJoiner out = new StringJoiner(System.lineSeparator());
         reader.lines().forEach(out::add);

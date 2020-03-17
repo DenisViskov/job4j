@@ -1,5 +1,11 @@
 package ru.job4j.io;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.StringJoiner;
+
 /**
  * Класс реализует ...
  *
@@ -9,7 +15,20 @@ package ru.job4j.io;
  */
 public class Analizy {
 
-    public void unavailable(String source, String target) {
+    public void unavailable(String source, String target) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(source));
+        PrintWriter writer = new PrintWriter(target);
+        StringJoiner line = new StringJoiner(System.lineSeparator());
+        while (reader.ready()) {
+            reader.lines()
+                    .filter(lines -> !lines.equals(""))
+                    .forEach(line::add);
+        }
+    }
+
+    private String builderLog(String line) {
+        String[] lines = line.split(System.lineSeparator());
+        return null;
 
     }
 }
