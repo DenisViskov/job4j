@@ -1,9 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.StringJoiner;
 
 /**
@@ -22,7 +19,7 @@ public class Analizy {
      * @param target - target file path
      * @throws IOException
      */
-    public void unavailable(String source, String target) throws IOException {
+    public void unavailable(File source, File target) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(source));
         PrintWriter writer = new PrintWriter(target);
         StringJoiner line = new StringJoiner(System.lineSeparator());

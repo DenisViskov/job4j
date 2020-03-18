@@ -1,21 +1,34 @@
 package ru.job4j.io;
 
 import org.hamcrest.core.Is;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.assertThat;
 
 public class AnalizyTest {
 
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+    String sourcePath = "./data/ServerLog.txt";
+
     @Test
     public void unavailableTest() throws IOException {
-        new Analizy().unavailable("./data/ServerLog.txt", "./data/unavailable.csv");
-        BufferedReader reader = new BufferedReader(new FileReader("./data/unavailable.csv"));
+        File source = folder.newFile("ServerLog.txt");
+        File target = folder.newFile("unavailable.csv");
+        BufferedReader readerSourcePAth = new BufferedReader(new FileReader(sourcePath));
+        PrintWriter writer = new PrintWriter(source);
+        while (readerSourcePAth.ready()) {
+            readerSourcePAth.lines()
+                    .forEach(writer::println);
+        }
+        writer.close();
+        new Analizy().unavailable(source, target);
+        BufferedReader reader = new BufferedReader(new FileReader(target));
         StringJoiner out = new StringJoiner(System.lineSeparator());
         reader.lines().forEach(out::add);
         StringJoiner expected = new StringJoiner(System.lineSeparator());
