@@ -1,6 +1,8 @@
 package ru.job4j.io;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Class has realizes example how to work with try with resources
@@ -10,15 +12,19 @@ import java.io.FileInputStream;
  * @since 16.03.2020
  */
 public class EvenNumberFile {
-    public static void main(String[] args) {
+
+    /**
+     * Method has realizes checking of number and print only even
+     *
+     * @param path - path
+     * @throws IOException
+     */
+    public void isEvenNumber(String path) throws IOException {
         StringBuilder text = new StringBuilder();
-        try (FileInputStream fileReader = new FileInputStream("even.txt")) {
-            int read;
-            while ((read = fileReader.read()) != -1) {
-                text.append((char) read);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        while (reader.ready()) {
+            reader.lines()
+                    .forEach(line -> text.append(line + System.lineSeparator()));
         }
         String[] lines = text.toString().split(System.lineSeparator());
         for (String line : lines) {
